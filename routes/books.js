@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const Book = require('../models/book')
+
 
 //All books Home Page
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     res.render('books/index')
 })
 
