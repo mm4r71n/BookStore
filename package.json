@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/mm4r71n/BookStore#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
@@ -26,6 +27,6 @@
   },
   "devDependencies": {
     "dotenv": "^8.1.0",
-    "nodemon": "^1.19.2"
+    "nodemon": "^1.19.3"
   }
 }
