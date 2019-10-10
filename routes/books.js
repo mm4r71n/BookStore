@@ -7,29 +7,19 @@ const Book = require('../models/book')
 router.get('/', async (req, res) => {
     
     //added this
-//const express = require('express')
 const mongoose = require('mongoose')
-
-//dbName ='Bookstore'
-const db = mongoose.connection
-
+const db = mongoose.connection.db
 const col = db.collection('books')
+bookMap = [];
 
-col.find({}, function(err, books) {
-    counter = 0;
-    bookMap = [];
-    books.forEach(function(book) {
-        bookMap[counter] = book;
-        console.log(bookMap[counter].title);
-        counter = counter + 1;
-    });
-
-    res.render('books/index', {bookMap: bookMap, var: counter});
-});
-//console.log(col)
-
-//res.render('books/index')
-//to here
+books = col.find({});
+    for (let book = await books.next(); book != null; book = await books.next()){
+        //console.log(book);
+        bookMap.push(book);
+    }
+    console.log(bookMap) 
+    
+    res.render('books/index.ejs')
     
     res.send('All books')
 })
