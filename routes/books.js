@@ -21,7 +21,7 @@ books = col.find({});
     
     res.render('books/index.ejs')
     
-    res.send('All books')
+    //res.send('All books')
 })
 
 //new book route
