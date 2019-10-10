@@ -1,1 +1,12 @@
 all books
+
+<!-- views/book/index.ejs -->
+
+
+<h2>Loop</h2>
+
+<ul>
+    <% bookMap.forEach(function(book) { %>
+        <li><%= book.title %> - <%= book.author %></li>
+    <% }); %>
+</ul>
