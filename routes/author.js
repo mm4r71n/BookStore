@@ -1,28 +1,29 @@
-const express = require('express')
-const router = express.Router()
-const Author = require('../models/author')
+const express = require('express');
+const router = express.Router();
+const Author = require('../models/author');
 
 //all authors
 router.get('/', async (req, res) => {
-    let searchOptions = {}
-    if (req.query.name != null && req.query.name != ''){
-        searchOptions.name = new RegExp(req.query.name, 'i')
-    }
-    try {
-        const authors = await Author.find({})
-        res.render('authors/index', { 
-            authors: authors, 
-            searchOptions: req.query
-        })
-    } catch {
-        res.redirect('/')
-    }
-})
+  let searchOptions = {};
+  if (req.query.name != null && req.query.name != '') {
+    searchOptions.name = new RegExp(req.query.name, 'i');
+  }
+  try {
+    const authors = await Author.find({});
+    res.render('authors/index', {
+      authors: authors,
+      searchOptions: req.query
+    });
+  } catch (e) {
+    console.log('ERROR :', e);
+    res.redirect('/');
+  }
+});
 
 //new author authors
 router.get('/new', (req, res) => {
-    res.render('authors/new', { author: new Author() })
-})
+  res.render('authors/new', { author: new Author() });
+});
 
 //creating author
 router.post('/', async (req, res) => {
@@ -42,4 +43,4 @@ router.post('/', async (req, res) => {
     }
 })
 
-module.exports = router
+module.exports = router;

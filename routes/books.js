@@ -17,9 +17,7 @@ router.get('/', async (req, res) => {
     } catch {
         res.redirect('/')
     }
-    
 })
-
 //new book route
 router.get('/new', async (req, res) => {
     renderNewPage(res, new Book())
