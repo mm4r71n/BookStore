@@ -1,45 +1,74 @@
 const express = require('express')
 const router = express.Router()
 const Book = require('../models/book')
+const Author = require('../models/author')
+const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
+
 
 
 //All books Home Page
 router.get('/', async (req, res) => {
-    
-    //added this
-const mongoose = require('mongoose')
-const db = mongoose.connection.db
-const col = db.collection('books')
-bookMap = [];
-
-books = col.find({});
-    for (let book = await books.next(); book != null; book = await books.next()){
-        //console.log(book);
-        bookMap.push(book);
+    try{
+        const books = await Book.find({})
+        res.render('books/index', {
+            books: books,
+            searchOptions: req.query
+        })
+    } catch {
+        res.redirect('/')
     }
-    console.log(bookMap) 
-    
-    res.render('books/index.ejs')
-    
-    //res.send('All books')
 })
-
 //new book route
-router.get('/new', (req, res) => {
-    const book = new Book()
-    res.render('books/new', {
-        book: book
-    })
+router.get('/new', async (req, res) => {
+    renderNewPage(res, new Book())
 })
 
 //create book route
 router.post('/', async (req, res) => {
-    res.send('Create new book')
+    const book = new Book({
+        title: req.body.title,
+        author: req.body.author,
+        publisher: req.body.publisher,
+        publishDate: new Date(req.body.publishDate),
+        description: req.body.description
+    })
+
+    saveCover(book, req.body.cover)
+
+    try {
+        const newBook = await book.save()
+        res.redirect('books')
+    } catch {
+        renderNewPage(res, book, true)
+    }
 })
+
+async function renderNewPage(res, book, hasError = false) {
+    try {
+        const authors = await Author.find({})
+        const params = {
+            authors: authors,
+            book: book
+        } 
+        if (hasError) params.errorMessage = 'Error creatig Book'
+        res.render('books/new', params)
+    } catch {
+        res.redirect('/books')
+    }
+}
 
 //Show detail of the book
 router.get('/', (req, res) => {
     res.render('books/bookDetails')
 })
+
+function saveCover(book, coverEncoded) {
+    if (coverEncoded == null) return
+    const cover = JSON.parse(coverEncoded)
+    if (cover != null && imageMimeTypes.includes(cover.type)) {
+        book.coverImage = new Buffer.from(cover.data, 'base64')
+        book.coverImageType = cover.type
+    }
+}
 
 module.exports = router

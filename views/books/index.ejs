@@ -1,12 +1,7 @@
-<!-- views/book/index.ejs -->
-
 
 <h2>All Books</h2>
-
-<ul>
-    <% bookMap.forEach(function(book) { %>
-        <li><%= book.title %>  <%= book.author %></li>
+<div>
+    <% books.forEach(function(book) { %>
+        <img height="150" width="100" src="<%= book.coverImagePath %>">
     <% }); %>
-
-    <!-- <li><%= bookMap.length %></li> -->
-</ul>
+</div>
