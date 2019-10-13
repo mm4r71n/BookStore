@@ -5,15 +5,17 @@ const bookSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    bookCover:{
+    coverImage: {
+        type: Buffer,
+        required: true
+    },
+    coverImageType: {
         type: String,
+        required: true
     },
     author: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         require: true
-    },
-    bio: {
-        type: String
     },
     description: {
         type: String,
@@ -30,6 +32,12 @@ const bookSchema = new mongoose.Schema({
         type: Date,
         require: true
     },
+})
+
+bookSchema.virtual('coverImagePath').get(function() {
+    if (this.coverImage != null && this.coverImageType != null) {
+        return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
+    }
 })
 
 module.exports = mongoose.model('Book', bookSchema)
