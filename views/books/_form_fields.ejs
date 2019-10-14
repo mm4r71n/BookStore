@@ -29,7 +29,15 @@
     <input type="file" name="cover" class="filepond">
 </div>
 <div>    
+    <label>Genre</label>
+    <input type="text" name="genre" value="<%= book.genre %>">
+</div>
+<div>    
     <label>Description</label>
     <textarea name="description"><%= book.description %></textarea>
+</div>
+<div>
+    <label>Price</label>
+    <input type="number" min="0" max="100" step="any" name="price" value="<%= book.price %>">
 </div>
 

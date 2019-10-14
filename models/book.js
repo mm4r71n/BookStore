@@ -32,6 +32,12 @@ const bookSchema = new mongoose.Schema({
         type: Date,
         require: true
     },
+    rating: {
+        type: String
+    },
+    price: {
+        type: Number
+    }
 })
 
 bookSchema.virtual('coverImagePath').get(function() {

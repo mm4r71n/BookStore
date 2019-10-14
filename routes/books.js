@@ -30,7 +30,8 @@ router.post('/', async (req, res) => {
         author: req.body.author,
         publisher: req.body.publisher,
         publishDate: new Date(req.body.publishDate),
-        description: req.body.description
+        description: req.body.description,
+        price: req.body.price
     })
 
     saveCover(book, req.body.cover)
