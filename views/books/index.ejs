@@ -1,7 +1,41 @@
 
 <h2>All Books</h2>
 <div>
-    <% books.forEach(function(book) { %>
-        <img height="150" width="100" src="<%= book.coverImagePath %>">
-    <% }); %>
+    <table id="book table" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Cover</th>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Author</th>
+                <th>Publish Date</th>
+                <th>Price</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% books.forEach(function(book) { %>
+                <tr>
+                    <td><img height="150" width="100" src="<%= book.coverImagePath %>"></td>
+                    <td>book.title</td>
+                    <td>Null</td>
+                    <td>book.author</td>
+                    <td>book.publishDate</td>
+                    <td>Null</td>
+                    <td>Null</td>
+                </tr>
+            <% }); %>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Cover</th>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Author</th>
+                <th>Release Date</th>
+                <th>Price</th>
+                <th>Rating</th>
+            </tr>
+        </tfoot>
+    </table>
 </div>
