@@ -20,12 +20,12 @@
                     <td><a href="/books/<%= book._id %>"><%= book.title %></a></td>
                     <td>Null</td>
                     <td><% authors.forEach(author => { %>
-                        <% if (author.id == book.author){%>
+                        <% if (author.id == book.author){ %>
                         <%= author.name %>
                         <% } }) %>
                     </td>
-                    <td><%= book.publishDate%></td>
-                    <td><%= book.price%></td>
+                    <td><%= book.publishDate %></td>
+                    <td><%= book.price %></td>
                     <td>Null</td>
                 </tr>
             <% }); %>
