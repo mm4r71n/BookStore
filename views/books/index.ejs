@@ -17,11 +17,11 @@
             <% books.forEach(function(book) { %>
                 <tr>
                     <td><img height="150" width="100" src="<%= book.coverImagePath %>"></td>
-                    <td>book.title</td>
+                    <td><a href="/books/<%= book._id %>"><%= book.title %></a></td>
                     <td>Null</td>
-                    <td>book.author</td>
-                    <td>book.publishDate</td>
-                    <td>Null</td>
+                    <td><%= book.author%></td>
+                    <td><%= book.publishDate%></td>
+                    <td><%= book.price%></td>
                     <td>Null</td>
                 </tr>
             <% }); %>

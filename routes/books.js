@@ -59,8 +59,11 @@ async function renderNewPage(res, book, hasError = false) {
 }
 
 //Show detail of the book
-router.get('/', (req, res) => {
-    res.render('books/bookDetails')
+router.get('/:bookID', async (req, res) => {
+    const book = await Book.find({"_id": req.params.bookID})
+    //console.log('Book details...')
+    //console.log(book)
+    res.render('books/bookDetails', {book: book[0]})
 })
 
 function saveCover(book, coverEncoded) {
