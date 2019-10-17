@@ -19,7 +19,11 @@
                     <td><img height="150" width="100" src="<%= book.coverImagePath %>"></td>
                     <td><a href="/books/<%= book._id %>"><%= book.title %></a></td>
                     <td>Null</td>
-                    <td><%= book.author%></td>
+                    <td><% authors.forEach(author => { %>
+                        <% if (author.id == book.author){%>
+                        <%= author.name %>
+                        <% } }) %>
+                    </td>
                     <td><%= book.publishDate%></td>
                     <td><%= book.price%></td>
                     <td>Null</td>

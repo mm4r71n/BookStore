@@ -10,8 +10,10 @@ const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
 router.get('/', async (req, res) => {
     try{
         const books = await Book.find({})
+        const authors = await Author.find({})
         res.render('books/index', {
             books: books,
+            authors: authors,
             searchOptions: req.query
         })
     } catch {
