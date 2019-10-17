@@ -9,14 +9,12 @@ router.get("/", async (req, res) => {
   try {
     const books = await Book.find({});
     const authors = await Author.find({});
-    console.log("im here")
     res.render('books/index', {
       books: books,
       authors: authors,
       searchOptions: req.query
     });
   } catch {
-    console.log("inside catch")
     res.redirect("/");
   }
 });
