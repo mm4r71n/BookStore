@@ -1,14 +1,32 @@
 <center><h2><%= book.title %></h2></center>
 
 <div>
-  <div>
+  <body>
     <center>
-      <img height="350" width="300" src="<%= book.coverImagePath %>" />
+      <img
+        id="currentImg"
+        onmouseover="largerIm()"
+        onmouseout="normalSize()"
+        src="<%= book.coverImagePath %>"
+        height="350"
+        width="300"
+      />
     </center>
-  </div>
+  </body>
+  <script>
+    function largerIm() {
+      document.getElementById('currentImg').height = '800';
+      document.getElementById('currentImg').width = '800';
+    }
+    function normalSize() {
+      document.getElementById('currentImg').height = '350';
+      document.getElementById('currentImg').width = '300';
+    }
+  </script>
 
   <form action="/" method="POST">
     <center><button type="submit">Add to cart</button></center>
-    <button type="submit">Leave Review</button>
+    <%= book.description %>
+    <div><button type="submit">Leave Review</button></div>
   </form>
 </div>
