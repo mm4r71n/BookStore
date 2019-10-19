@@ -18,7 +18,18 @@ router.get('/:bookId/:userId', async (req, res) => {
     const wishes = await Wishlist.find({});
     res.render('wishlist', { wishes: wishes });
   } catch (error) {
-    renderNewPage(res, wishlist, true);
+    // renderNewPage(res, wishlist, true);
+    console.log('error on list', error);
+  }
+});
+
+router.get('/list', async (req, res) => {
+  console.log('PARAM', req.params.userId);
+  try {
+    const wishes = await Wishlist.find({}); // Pending the query filtering by logged user
+    res.render('wishlist', { wishes: wishes });
+  } catch (error) {
+    console.log('error on list', error);
   }
 });
 
