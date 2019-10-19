@@ -1,8 +1,12 @@
-<%= book.title %>
+<center><h2><%= book.title %></h2></center>
 
 <div>
-    <%- 
+    <div>
+    <center><img height="350" width="300" src="<%= book.coverImagePath %>"></center>
+    </div>
+
     <form action="/" method="POST">
-        <button type="submit">Create</button>
+        <center><button type="submit">Add to cart</button></center>
+        <button type="submit">Leave Review</button>
     </form>
 </div>
