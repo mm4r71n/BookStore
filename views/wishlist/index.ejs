@@ -1,1 +1,8 @@
-Wishlist
+<h2>Wishlist</h2>
+
+<div>
+  <% wishes.forEach(wish => { %>
+  <div>Book Id:<%=wish.bookId %></div>
+  <div>User Id: <%=wish.userId %></div>
+  <% }); %>
+</div>
