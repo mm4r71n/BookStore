@@ -1,19 +1,40 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
+const User = require("../models/user");
 
-//Log in
-router.get('/login', (req, res) => {
-    res.render('user/login')
-})
+router.get("/", (req, res) => {
+  res.render("user/index");
+});
 
-//Register
-router.get('/register', (req, res) => {
-    res.render('user/register')
-})
+router.get("/register", (req, res) => {
+  res.render("user/register");
+});
 
-//Creating user
-router.post('/',  (req, res) => {
-    res.send('Create')
-})
+//new user route
+// router.get("/register", (req, res) => {
+//   renderNewPage(res, new User());
+// });
 
-module.exports = router
+//create user route
+router.post("/register", async (req, res) => {
+  //   console.log(`user is ${req.body.username}`);
+  const user = new User({
+    name: req.body.name,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    address: req.body.address,
+    credit_card: req.body.creditcard
+  });
+
+  try {
+    const newUser = await user.save();
+    console.log("user added!");
+    res.redirect("/");
+  } catch (e) {
+    console.log(e);
+    res.render("/");
+  }
+});
+
+module.exports = router;

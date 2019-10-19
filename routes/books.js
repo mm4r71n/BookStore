@@ -8,12 +8,13 @@ const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 router.get('/', async (req, res) => {
   try {
     const books = await Book.find({});
+    const authors = await Author.find({});
     res.render('books/index', {
       books: books,
+      authors: authors,
       searchOptions: req.query
     });
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
     res.redirect('/');
   }
 });
@@ -38,7 +39,7 @@ router.post('/', async (req, res) => {
   try {
     const newBook = await book.save();
     res.redirect('books');
-  } catch (e) {
+  } catch (error) {
     renderNewPage(res, book, true);
   }
 });
@@ -52,14 +53,17 @@ async function renderNewPage(res, book, hasError = false) {
     };
     if (hasError) params.errorMessage = 'Error creating Book';
     res.render('books/new', params);
-  } catch (e) {
+  } catch (error) {
     res.redirect('/books');
   }
 }
 
 //Show detail of the book
-router.get('/', (req, res) => {
-  res.render('books/bookDetails');
+router.get('/:bookID', async (req, res) => {
+  const book = await Book.find({ _id: req.params.bookID });
+  //console.log('Book details...')
+  //console.log(book)
+  res.render('books/bookDetails', { book: book[0] });
 });
 
 function saveCover(book, coverEncoded) {
