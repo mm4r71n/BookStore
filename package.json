@@ -20,11 +20,15 @@
   "homepage": "https://github.com/mm4r71n/BookStore#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
     "connect-mongo": "^3.0.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.0",
     "express-handlebars": "^3.1.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.2.0",
     "mongoose": "^5.7.1"
   },
   "devDependencies": {

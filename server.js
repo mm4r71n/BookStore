@@ -6,6 +6,41 @@ const express = require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
+const session = require('express-session')
+const expressValidator = require('express-validator')
+
+//express session
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}))
+
+//express validator
+app.use(expressValidator({
+    errorFormater: function(param, msg, value){
+        var namespace = param.split('.'),
+        root = namespace.shift(),
+        formParam = root
+
+        while(namespace.length) {
+            formParam += '[' + namespace.shift() + ']'
+        }
+        return{
+            param: formParam,
+            msg: msg,
+            value: value
+        }
+    }
+}))
+
+//express connect messages
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
 
 const indexRouter = require('./routes/index')
 const bookRouter = require('./routes/books')
