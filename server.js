@@ -18,22 +18,7 @@ app.use(session({
 }))
 
 //express validator
-app.use(expressValidator({
-    errorFormater: function(param, msg, value){
-        var namespace = param.split('.'),
-        root = namespace.shift(),
-        formParam = root
-
-        while(namespace.length) {
-            formParam += '[' + namespace.shift() + ']'
-        }
-        return{
-            param: formParam,
-            msg: msg,
-            value: value
-        }
-    }
-}))
+app.use(express.json())
 
 //express connect messages
 app.use(require('connect-flash')());
