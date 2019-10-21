@@ -1,45 +1,52 @@
-
 <h2>All Books</h2>
 <div>
-    <table id="book table" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Cover</th>
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Author</th>
-                <th>Publish Date</th>
-                <th>Price</th>
-                <th>Rating</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% books.forEach(function(book) { %>
-                <tr>
-                    <td><img height="150" width="100" src="<%= book.coverImagePath %>"></td>
-                    <td><a href="/books/<%= book._id %>"><%= book.title %></a></td>
-                    <td><%= book.genre %></td>
-                    <td><% authors.forEach(author => { %>
-                        <% if (author.id == book.author){ %>
-                        <%= author.name %>
-                        <% } }) %>
-                    </td>
-                    <td><%= book.publishDate %></td>
-                    <td><%= book.price %></td>
-                    <td>Null</td>
-                </tr>
-            <% }); %>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>Cover</th>
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Author</th>
-                <th>Release Date</th>
-                <th>Price</th>
-                <th>Rating</th>
-            </tr>
-        </tfoot>
-    </table>
+  <table id="book table" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Author</th>
+        <th>Publish Date</th>
+        <th>Price</th>
+        <th>Rating</th>
+        <th>Wishlist Selection</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% books.forEach(function(book) { %>
+      <tr>
+        <td>
+          <img height="150" width="100" src="<%= book.coverImagePath %>" />
+        </td>
+        <td><a href="/books/<%= book._id %>"><%= book.title %></a></td>
+        <td><%= book.genre %></td>
+        <td>
+          <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
+          <%= author.name %> <% } }) %>
+        </td>
+        <td><%= book.publishDate %></td>
+        <td><%= book.price %></td>
+        <td>Null</td>
+        <td>
+          <a href="/wishlist/<%= book._id %>/5da9fbd86c2ebb1128a8eab0"
+            >Add to Wishlist</a
+          >
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Author</th>
+        <th>Release Date</th>
+        <th>Price</th>
+        <th>Rating</th>
+        <th>Wishlist Selection</th>
+      </tr>
+    </tfoot>
+  </table>
 </div>

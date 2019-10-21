@@ -1,1 +1,10 @@
-Wishlist
+<h2>Wishlist</h2>
+
+<div>
+  <% wishes.forEach(wish => { %>
+  <div>Book Id:<%=wish.bookId %>  
+    <div align = "right"><form action="/" method="POST"> <!--delete button to remove items from wishlist-->
+    <button type="submit">Delete</button></div>
+  <!--<div>User Id: <%=wish.userId %></div>-->
+  <% }); %>
+</div>

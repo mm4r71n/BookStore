@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Book = require("../models/book");
-const Author = require("../models/author");
-const imageMimeTypes = ["image/jpeg", "image/png", "images/gif"];
+const Book = require('../models/book');
+const Author = require('../models/author');
+const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 
 //All books Home Page
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const books = await Book.find({});
     const authors = await Author.find({});
@@ -14,17 +14,17 @@ router.get("/", async (req, res) => {
       authors: authors,
       searchOptions: req.query
     });
-  } catch {
-    res.redirect("/");
+  } catch (error) {
+    res.redirect('/');
   }
 });
 //new book route
-router.get("/new", async (req, res) => {
+router.get('/new', async (req, res) => {
   renderNewPage(res, new Book());
 });
 
 //create book route
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   const book = new Book({
     title: req.body.title,
     author: req.body.author,
@@ -39,8 +39,8 @@ router.post("/", async (req, res) => {
 
   try {
     const newBook = await book.save();
-    res.redirect("books");
-  } catch {
+    res.redirect('books');
+  } catch (error) {
     renderNewPage(res, book, true);
   }
 });
@@ -52,16 +52,16 @@ async function renderNewPage(res, book, hasError = false) {
       authors: authors,
       book: book
     };
-    if (hasError) params.errorMessage = "Error creating Book";
-    res.render("books/new", params);
-  } catch {
-    res.redirect("/books");
+    if (hasError) params.errorMessage = 'Error creating Book';
+    res.render('books/new', params);
+  } catch (error) {
+    res.redirect('/books');
   }
 }
 
 //Show detail of the book
 router.get('/:bookID', async (req, res) => {
-  const book = await Book.find({"_id": req.params.bookID})
+  const book = await Book.find({ _id: req.params.bookID });
   //console.log('Book details...')
   //console.log(book)
   res.render('books/bookDetails', {book: book[0]})
@@ -80,7 +80,7 @@ function saveCover(book, coverEncoded) {
   if (coverEncoded == null) return;
   const cover = JSON.parse(coverEncoded);
   if (cover != null && imageMimeTypes.includes(cover.type)) {
-    book.coverImage = new Buffer.from(cover.data, "base64");
+    book.coverImage = new Buffer.from(cover.data, 'base64');
     book.coverImageType = cover.type;
   }
 }
