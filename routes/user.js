@@ -1,40 +1,65 @@
-const express = require("express");
-const router = express.Router();
-const User = require("../models/user");
+const express = require('express')
+const router = express.Router()
+var csrf = require('csurf')
+var passport = require('passport')
 
-router.get("/", (req, res) => {
-  res.render("user/index");
-});
+var csrfProtection = csrf()
+router.use(csrfProtection)
 
-router.get("/register", (req, res) => {
-  res.render("user/register");
-});
+router.get('/profile', isLoggedIn, (req, res, next) => {
+  res.render('user/profile')
+})
 
-//new user route
-// router.get("/register", (req, res) => {
-//   renderNewPage(res, new User());
-// });
+router.use('/', notLoggedIn, (req, res, next) => {
+  next()
+})
 
-//create user route
-router.post("/register", async (req, res) => {
-  //   console.log(`user is ${req.body.username}`);
-  const user = new User({
-    name: req.body.name,
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    address: req.body.address,
-    credit_card: req.body.creditcard
-  });
+router.get('/signup', (req,res, next) => {
+  var messages = req.flash('error')
+  res.render('user/signup', {
+      csrfToken: req.csrfToken(),
+      messages: messages,
+      hasErrors: messages.length > 0
+  })
+})
+router.post('/signup', passport.authenticate('local-signup', {
+  successRedirect: '/user/profile',
+  failureRedirect: '/user/signup',
+  failureFlash: true
+}))
 
-  try {
-    const newUser = await user.save();
-    console.log("user added!");
-    res.redirect("/");
-  } catch (e) {
-    console.log(e);
-    res.render("/");
+router.get('/signin', (req, res, next) => {
+  var messages = req.flash('error')
+  res.render('user/signin', {
+      csrfToken: req.csrfToken(),
+      messages: messages,
+      hasErrors: messages.length > 0
+  })
+})
+
+router.post('/signin', passport.authenticate('local-signin', {
+  successRedirect: '/user/profile',
+  failureRedirect: '/user/signin',
+  failureFlash: true
+}))
+
+router.get('/logout', (req, res, next) => {
+  req.logout()
+  res.redirect('/')
+})
+
+module.exports = router
+
+function isLoggedIn(req, res, next) {
+  if(req.isAuthenticated()) {
+    return next()
   }
-});
+  res.redirect('/')
+}
 
-module.exports = router;
+function notLoggedIn(req, res, next) {
+  if(!req.isAuthenticated()) {
+    return next()
+  }
+  res.redirect('/')
+}
