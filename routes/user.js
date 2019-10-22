@@ -10,6 +10,11 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
   res.render('user/profile')
 })
 
+router.get('/logout', isLoggedIn, (req, res, next) => {
+  req.logout()
+  res.redirect('/')
+})
+
 router.use('/', notLoggedIn, (req, res, next) => {
   next()
 })
@@ -42,11 +47,6 @@ router.post('/signin', passport.authenticate('local-signin', {
   failureRedirect: '/user/signin',
   failureFlash: true
 }))
-
-router.get('/logout', (req, res, next) => {
-  req.logout()
-  res.redirect('/')
-})
 
 module.exports = router
 

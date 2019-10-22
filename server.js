@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express')
+const path = require('path')
 const app = express()
 const cookieParser = require('cookie-parser')
 const expressLayouts = require('express-ejs-layouts')
@@ -11,12 +12,7 @@ const session = require('express-session')
 const passport = require('passport')
 const flash = require('connect-flash')
 const validator = require('express-validator')
-
-var myLogger = function(req, res, next) {
-    res.locals.login = req.isAuthenticated()
-    next()
-}
-app.use(myLogger)
+const mongoStore = require('connect-mongo')(session)
 
 const indexRouter = require('./routes/index')
 const bookRouter = require('./routes/books')
@@ -41,10 +37,23 @@ app.use(expressLayouts)
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false}))
 app.use(cookieParser())
-app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}))
+app.use(session({
+  secret: 'mysupersecret', 
+  resave: false, 
+  saveUninitialized: false,
+  store: new mongoStore({mongooseConnection: mongoose.connection}),
+  cookie: {maxAge: 180 * 60 * 1000}
+}))
 app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(function(req, res, next) {
+  res.locals.login = req.isAuthenticated()
+  res.locals.session = req.session
+  next()
+})
 
 app.use('/user', userRouter)
 app.use('/', indexRouter)

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">Bookstore</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,32 +24,16 @@
                             <i class="fas fa-user"></i>User Management 
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <%if (login) { %>
-                            <a class="dropdown-item" href="/user/profile">User Account</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/user/logout">Logout</a>
-                        <% } %>
-                        <% if (!login) { %> 
-                            <a class="dropdown-item" href="/user/signup">Sign Up</a>
-                            <a class="dropdown-item" href="/user/signin">Sign In</a>
-                        <% } %>
-                        
+                            <% if (login) { %>
+                                <a class="dropdown-item" href="/user/profile">User Account</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/user/logout">Logout</a>
+                            <% } else { %> 
+                                <a class="dropdown-item" href="/user/signup">Sign Up</a>
+                                <a class="dropdown-item" href="/user/signin">Sign In</a>
+                            <% } %>    
                     </div>
                 </li>
             </ul>
         </div>
     </nav>
-=======
-<header>
-  <nav>
-    <a href="/">BookStore</a>
-    <ul>
-      <li><a href="/books">Books</a></li>
-      <li><a href="/cart">Shoping Cart</a></li>
-      <li><a href="/user">Login</a></li>
-      <li><a href="/user/register">Register</a></li>
-      <li><a href="/wishlist/list">Wishlist</a></li>
-    </ul>
-  </nav>
-</header>
->>>>>>> 000711ae262e3687b0a43115a721b50cff3598d1
