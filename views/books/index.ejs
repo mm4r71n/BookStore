@@ -1,5 +1,5 @@
 <h2>All Books</h2>
-<div>
+<!-- <div>
   <table id="book table" class="display" style="width:100%">
     <thead>
       <tr>
@@ -30,8 +30,7 @@
         <td>Null</td>
         <td>
           <a href="/wishlist/<%= book._id %>/5da9fbd86c2ebb1128a8eab0"
-            >Add to Wishlist</a
-          >
+            >Add to Wishlist</a>
         </td>
       </tr>
       <% }); %>
@@ -49,4 +48,46 @@
       </tr>
     </tfoot>
   </table>
+</div> -->
+
+<div class ="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Filter by
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dopdownMenuButton">
+    <a class="dropdown-item" href="#"> Fiction</a>
+    <a class="dropdown-item" href="#"> Romance</a>
+    <a class="dropdown-item" href="#"> Horror</a>
+  </div>
+</div>
+
+<div class ="w-25 p-3">
+  <ul class ="list-group list-group-horizontal">
+    <% books.forEach(function(book) { %>
+    <li class ="list-group-item">
+      <a href="/books/<%= book._id %>">
+      <div class ="text-center">
+        <img height="150" width="100" src="<%= book.coverImagePath %>" />
+      </div>
+      <div class ="text-center" data-rows=3>
+        <%= book.title %>
+      </div>
+      </a>
+      <div class ="text-center" data-rows=2>
+        <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
+          <%= author.name %> <% } }) %>
+      </div>
+      <div class ="text-center">
+        Null
+      </div>
+      <div class ="text-center">
+        <%= book.price %>
+      </div>
+      <div class ="text-center">
+        <a href="/wishlist/<%= book._id %>/5da9fbd86c2ebb1128a8eab0"
+            >Add to Wishlist</a>
+      </div>
+    </li>
+    <% }); %>
+  </ul>
 </div>
