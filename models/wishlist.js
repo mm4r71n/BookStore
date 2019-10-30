@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const wishlistSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    require: true
+    ref: 'User'
   },
   bookId: {
     type: mongoose.Schema.Types.ObjectId,
-    require: true
+    ref: 'Book'
   }
 });
 

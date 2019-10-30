@@ -64,18 +64,20 @@ router.get('/:bookID', async (req, res) => {
   const book = await Book.find({ _id: req.params.bookID });
   //console.log('Book details...')
   //console.log(book)
-  res.render('books/bookDetails', {book: book[0]})
-})
+  res.render('books/bookDetails', { book: book[0] });
+});
 router.get('/:id', async (req, res) => {
   try {
-    const book = await Book.findById(req.param.id).populate('author').exec()
+    const book = await Book.findById(req.param.id)
+      .populate('author')
+      .exec();
     res.render('books/booksDetails', {
       book: book
-    })
-  } catch {
-    res.redirect('/')
+    });
+  } catch (e) {
+    res.redirect('/');
   }
-})
+});
 function saveCover(book, coverEncoded) {
   if (coverEncoded == null) return;
   const cover = JSON.parse(coverEncoded);
