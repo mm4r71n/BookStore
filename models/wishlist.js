@@ -11,4 +11,10 @@ const wishlistSchema = new mongoose.Schema({
   }
 });
 
+wishlistSchema.virtual('_wishlist', {
+  ref: 'Book',
+  localField: 'bookId',
+  foreignField: '_id'
+});
+
 module.exports = mongoose.model('Wishlist', wishlistSchema);
