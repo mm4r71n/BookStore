@@ -62,8 +62,6 @@ async function renderNewPage(res, book, hasError = false) {
 //Show detail of the book
 router.get('/:bookID', async (req, res) => {
   const book = await Book.find({ _id: req.params.bookID });
-  //console.log('Book details...')
-  //console.log(book)
   res.render('books/bookDetails', { book: book[0] });
 });
 router.get('/:id', async (req, res) => {

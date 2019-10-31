@@ -3,6 +3,7 @@ const router = express.Router();
 const Wishlist = require('../models/wishlist');
 const Book = require('../models/book');
 const ObjectId = require('mongodb').ObjectId;
+const mongoose = require('mongoose');
 
 router.get('/', async (req, res) => {
   try {
@@ -11,7 +12,6 @@ router.get('/', async (req, res) => {
     })
       .populate('user')
       .exec((err, books) => {
-        console.log('BOOKS INSIDE ---->', books);
       });
     res.render('wishlist', { wishes: wishes });
   } catch (error) {
@@ -20,34 +20,40 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:bookId/:userId', async (req, res) => {
-  console.log('PARAM', req.params.bookId);
   // Save the bookId and the login to the wishlist collection
   const wishlist = new Wishlist({
+    _id:  new mongoose.Types.ObjectId(),
     userId: req.params.userId,
     bookId: req.params.bookId
   });
   try {
     const newWishlist = await wishlist.save();
-    const wishes = await Wishlist.find({});
-    res.render('wishlist', { wishes: wishes });
+    res.redirect('/wishlist/list')
   } catch (error) {
-    // renderNewPage(res, wishlist, true);
     console.log('error on list', error);
   }
 });
 
 router.get('/list', async (req, res) => {
-  const wishes = await Wishlist.find({
-    userId: ObjectId('5da9fbd86c2ebb1128a8eab0')
-  }).populate('_wishlist');
+  const list = await Wishlist.aggregate([{
+    $lookup: {
+      from: "books",
+      localField: "bookId",
+      foreignField: "_id",
+      as: "newWishList"
+    }
+  }])
+    .exec(function (err,wishes) {
+    if (err) {
+      console.log("ERROR", err)
+    }
+    res.render('wishlist/list', { wishes: wishes });
 
-  // console.log('BOOKS --->', wishes);
-  res.render('wishlist/list', { wishes: wishes });
+  })
+
 });
 
 router.post('/', async (req, res) => {
-  console.log('POSTING WISHLIST', req.body);
-
   const wishlist = new Wishlist({
     userId: req.body.userId,
     bookId: req.body.bookId
