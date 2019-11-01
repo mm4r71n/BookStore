@@ -10,10 +10,10 @@ router.get('/:filter?', async (req, res) => {
     books = await Book.find({});
     const authors = await Author.find({});
     
-      if(typeof req.params.filter !== 'undefined' && req.params.filter){
+      if(typeof req.params.filter !== 'undefined'){
         console.log(String(req.params.filter));
         books = books.filter(function(book){
-          return book.genre == "Romance";
+          return book.genre == String(req.params.filter);
         });
       }
     res.render('books/index', {
