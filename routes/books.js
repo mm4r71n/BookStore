@@ -5,10 +5,17 @@ const Author = require('../models/author');
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 
 //All books Home Page
-router.get('/', async (req, res) => {
+router.get('/:filter?', async (req, res) => {
   try {
-    const books = await Book.find({});
+    books = await Book.find({});
     const authors = await Author.find({});
+    
+      if(typeof req.params.filter !== 'undefined' && req.params.filter){
+        console.log(String(req.params.filter));
+        books = books.filter(function(book){
+          return book.genre == "Romance";
+        });
+      }
     res.render('books/index', {
       books: books,
       authors: authors,
