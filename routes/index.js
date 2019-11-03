@@ -19,13 +19,13 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.get('/add-to-cart/:id', (req, res, next) => {
-  var bookID = req.params.bookID
-  var cart = new cart(req.session.cart ? req.session.cart: {})
+router.get('/add-to-cart/:id', function (req, res, next) {
+  productId = req.params.id
+  var cart = new Cart(req.session.cart ? req.session.cart: {})
 
-  Book.findById(bookID, function(err, book) {
+  Book.findById(productId, function(err, book) {
     if (err) {
-      res.redirect('/')
+      return res.redirect('/')
     }
     cart.add(book, book.id)
     req.session.cart = cart

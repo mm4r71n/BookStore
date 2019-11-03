@@ -5,7 +5,7 @@ const Author = require('../models/author');
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 
 //All books Home Page
-router.get('/:filter?', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     books = await Book.find({});
     const authors = await Author.find({});
@@ -25,6 +25,28 @@ router.get('/:filter?', async (req, res) => {
     res.redirect('/');
   }
 });
+
+router.get('/show-books/:filter?', async (req, res) => {
+  try {
+    books = await Book.find({});
+    const authors = await Author.find({});
+    
+      if(typeof req.params.filter !== 'undefined'){
+        console.log(String(req.params.filter));
+        books = books.filter(function(book){
+          return book.genre == String(req.params.filter);
+        });
+      }
+    res.render('books/index', {
+      books: books,
+      authors: authors,
+      searchOptions: req.query
+    });
+  } catch (error) {
+    res.redirect('/');
+  }
+});
+
 //new book route
 router.get('/new', async (req, res) => {
   renderNewPage(res, new Book());
