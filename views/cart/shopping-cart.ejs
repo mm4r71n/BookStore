@@ -1,0 +1,42 @@
+<% if (books) { %>
+    <div class="h-100 row align-items-center">
+        <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+            <ul class="list-group">
+                <%books.forEach(function(book) { %>
+                    <li class="list-group-item">
+                        <strong><%= book.item.title %></strong>
+                        <span class="badge badge-success"><%= book.price %></span>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                                <li><a class="dropdown-item" href="#">Reduce by 1</a></li>
+                                <li><a class="dropdown-item" href="#">Remove All</a></li> 
+                            </ul>
+                        </div>
+                        <span class="badge badge-light"><%= book.qty %></span>
+                    </li>
+                <% }); %>
+            </ul>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+            <strong>Total: <%= totalPrice %></strong>
+        </div> 
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+            <button type="button" class="btn btn-success">Checkout: </strong>
+        </div> 
+    </div>
+<% } else { %>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+            <h2>No Items in Cart</h2>
+        </div> 
+    </div>
+<% } %>
+
