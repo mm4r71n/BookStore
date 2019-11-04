@@ -5,12 +5,12 @@
                 <%books.forEach(function(book) { %>
                     <li class="list-group-item">
                         <strong><%= book.item.title %></strong>
-                        <span class="badge badge-success"><%= book.price %></span>
+                        <span class="badge badge-success">$<%= book.price %></span>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" class="btn btn-primary btn-sx dropdown-toggle" data-toggle="dropdown">
                                 Action
-                            <span class="caret"></span></button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                            </button>
+                            <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Reduce by 1</a></li>
                                 <li><a class="dropdown-item" href="#">Remove All</a></li> 
                             </ul>
