@@ -37,6 +37,9 @@
 </div>
 -->
 <div class="row">
+  <style>
+    .checked { color: orange; }
+  </style>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
       <img src=<%= book.coverImagePath %> alt="..." class="img-responsive">
@@ -46,7 +49,15 @@
           <p class="description"><%= book.description %></p>
           <div class="clearfix">
             <div class="price pull-left"><%= book.price %></div>
-              <a href="/add-to-cart/<%=book._id%>" class="btn btn-success pull-right" role="button">Button</a>
+            <div class="pull-right">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <button type="button" class="btn btn-warning"><i class="fa fa-check"></i></button>
+              <a href="/add-to-cart/<%=book._id%>" class="btn btn-success" role="button">Button</a>
+            </div>
           </div>
       </div>
   </div>
