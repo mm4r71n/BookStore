@@ -33,7 +33,11 @@ const bookSchema = new mongoose.Schema({
         require: true
     },
     rating: {
-        type: String
+        type: Number
+    },
+    numratings: {
+        type: Number,
+        default: 0
     },
     price: {
         type: Number

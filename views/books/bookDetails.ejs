@@ -38,8 +38,76 @@
 -->
 <div class="row">
   <style>
-    .checked { color: orange; }
+    .rating {
+  display: inline-block;
+  position: relative;
+  height: 25px;
+  line-height: 25px;
+  font-size: 25px;
+}
+
+.rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rating label:last-child {
+  position: static;
+}
+
+.rating label:nth-child(1) {
+  z-index: 5;
+}
+
+.rating label:nth-child(2) {
+  z-index: 4;
+}
+
+.rating label:nth-child(3) {
+  z-index: 3;
+}
+
+.rating label:nth-child(4) {
+  z-index: 2;
+}
+
+.rating label:nth-child(5) {
+  z-index: 1;
+}
+
+.rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.rating label .icon {
+  float: left;
+  color: transparent;
+}
+
+.rating label:last-child .icon {
+  color: #000;
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+  color: orange;
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+  color: #000;
+  text-shadow: 0 0 5px orange;
+}
   </style>
+  <script>
+    let stars = document.getElementsByName('stars')
+    stars.map(star => )
+  </script>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
       <img src=<%= book.coverImagePath %> alt="..." class="img-responsive">
@@ -50,12 +118,39 @@
           <div class="clearfix">
             <div class="price pull-left"><%= book.price %></div>
             <div class="pull-right">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                <button type="button" class="btn btn-warning"><i class="fa fa-check"></i></button>
+                <form id="rating-form" method="post" class="rating" action="/books/rate/<%=book.id%>">
+                    <label>
+                        <input type="radio" name="stars" value="1" <% if(book.rating === 1){ %> checked="checked" <% } %> />
+                        <span class="icon">★</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="stars" value="2" <% if(book.rating === 2){ %> checked="checked" <% } %>/>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="stars" value="3" <% if(book.rating === 3){ %> checked="checked" <% } %>/>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>   
+                    </label>
+                    <label>
+                      <input type="radio" name="stars" value="4" <% if(book.rating === 4){ %> checked="checked" <% } %>/>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="stars" value="5" <% if(book.rating === 5){ %> checked="checked" <% } %>/>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>
+                      <span class="icon">★</span>
+                    </label>
+                  </form>
+                <button type="submit" form="rating-form" class="btn btn-warning"><i class="fa fa-check"></i></button>
               <a href="/add-to-cart/<%=book._id%>" class="btn btn-success" role="button">Button</a>
             </div>
           </div>

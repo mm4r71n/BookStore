@@ -74,6 +74,23 @@ router.post('/', async (req, res) => {
   }
 });
 
+// update rating
+router.post('/rate/:bookID', async (req, res) => {
+  const book = await Book.findOne({ _id: req.params.bookID })
+  const newRating = parseInt(req.body.stars)
+  const prevCount = book.numratings || 0
+  const prevAvg = book.rating || 0
+  // cumulative moving average equation to calculate new rating (average) 
+  // given the previous number of ppl who rated, the previous rating,
+  // and the rating that has just been made by the user
+  const newAvg = (newRating + prevCount * prevAvg) / (prevCount + 1)
+  book.rating = Math.round(newAvg)
+  book.numratings = prevCount + 1
+  await book.save()
+  res.redirect(`/books/${req.params.bookID}`)
+
+})
+
 async function renderNewPage(res, book, hasError = false) {
   try {
     const authors = await Author.find({});
