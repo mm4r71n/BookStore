@@ -7,7 +7,7 @@ const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 //All books Home Page
 router.get('/', async (req, res) => {
   try {
-    books = await Book.find({});
+    books = await Book.find({}).limit(10);
     const authors = await Author.find({});
     
       if(typeof req.params.filter !== 'undefined'){
@@ -29,41 +29,102 @@ router.get('/', async (req, res) => {
 //Using this to filter the books
 router.get('/show-books/:filter?', async (req, res) => {
   try {
-    books = await Book.find({});
+    books = await Book.find({}).limit(10);
+    const authors = await Author.find({});
+    
+      if(typeof req.params.filter !== 'undefined'){
+        books = books.filter(function(book){
+          //if filter is for genre do this
+          if(req.params.filter !== '1star' &&
+          req.params.filter !== '2star' &&
+          req.params.filter !== '3star' &&
+          req.params.filter !== '4star' &&
+          req.params.filter !== '5star'){
+            return book.genre == String(req.params.filter);
+          }
+          //if filter is a rating, do this  
+          else if(req.params.filter === '1star'){
+            return (book.rating === 1 ||
+                    book.rating === 2 || book.rating === 3 ||
+                    book.rating === 4 || book.rating === 5);
+          }
+          else if(req.params.filter === '2star'){
+            return (book.rating === 2 ||
+                    book.rating === 3 || book.rating === 4 ||
+                    book.rating === 5);
+          }
+          else if(req.params.filter === '3star'){
+            return (book.rating === 3 ||
+                    book.rating === 4 || book.rating === 5);
+          }
+          else if(req.params.filter === '4star'){
+            return (book.rating === 4 ||
+                    book.rating === 5);
+          }
+          else if(req.params.filter === '5star'){
+            return book.rating === 5;
+          }
+          else{
+            return book;
+          }
+        });
+      }
+    res.render('books/index', {
+      books: books,
+      authors: authors,
+      searchOptions: req.query
+    });
+  } catch (error) {
+    res.redirect('/');
+  }
+});
+
+//pagination
+router.get('/show-books/:filter?/:page?', async (req, res) => {
+  try {
+    if(parseInt(req.params.page) === 1){
+      books = await Book.find({}).limit(10);
+    }
+    else{
+      books = await Book.find({}).skip(10).limit(10);
+    }
     const authors = await Author.find({});
     
       if(typeof req.params.filter !== 'undefined'){
         console.log(String(req.params.filter));
         books = books.filter(function(book){
           //if filter is for genre do this
-          if(req.params.filter !== '1' &&
-          req.params.filter !== '2' &&
-          req.params.filter !== '3' &&
-          req.params.filter !== '4' &&
-          req.params.filter !== '5'){
+          if(req.params.filter !== '1star' &&
+          req.params.filter !== '2star' &&
+          req.params.filter !== '3star' &&
+          req.params.filter !== '4star' &&
+          req.params.filter !== '5star'){
             return book.genre == String(req.params.filter);
           }
           //if filter is a rating, do this  
-          else if(req.params.filter === '1'){
+          else if(req.params.filter === '1star'){
             return (book.rating === 1 ||
                     book.rating === 2 || book.rating === 3 ||
                     book.rating === 4 || book.rating === 5);
           }
-          else if(req.params.filter === '2'){
+          else if(req.params.filter === '2star'){
             return (book.rating === 2 ||
                     book.rating === 3 || book.rating === 4 ||
                     book.rating === 5);
           }
-          else if(req.params.filter === '3'){
+          else if(req.params.filter === '3star'){
             return (book.rating === 3 ||
                     book.rating === 4 || book.rating === 5);
           }
-          else if(req.params.filter === '4'){
+          else if(req.params.filter === '4star'){
             return (book.rating === 4 ||
                     book.rating === 5);
           }
-          else{
+          else if(req.params.filter === '5star'){
             return book.rating === 5;
+          }
+          else{
+            return book;
           }
         });
       }
