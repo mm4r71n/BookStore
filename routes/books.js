@@ -26,6 +26,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+//Using this to filter the books
 router.get('/show-books/:filter?', async (req, res) => {
   try {
     books = await Book.find({});
@@ -34,7 +35,36 @@ router.get('/show-books/:filter?', async (req, res) => {
       if(typeof req.params.filter !== 'undefined'){
         console.log(String(req.params.filter));
         books = books.filter(function(book){
-          return book.genre == String(req.params.filter);
+          //if filter is for genre do this
+          if(req.params.filter !== '1' &&
+          req.params.filter !== '2' &&
+          req.params.filter !== '3' &&
+          req.params.filter !== '4' &&
+          req.params.filter !== '5'){
+            return book.genre == String(req.params.filter);
+          }
+          //if filter is a rating, do this  
+          else if(req.params.filter === '1'){
+            return (book.rating === 1 ||
+                    book.rating === 2 || book.rating === 3 ||
+                    book.rating === 4 || book.rating === 5);
+          }
+          else if(req.params.filter === '2'){
+            return (book.rating === 2 ||
+                    book.rating === 3 || book.rating === 4 ||
+                    book.rating === 5);
+          }
+          else if(req.params.filter === '3'){
+            return (book.rating === 3 ||
+                    book.rating === 4 || book.rating === 5);
+          }
+          else if(req.params.filter === '4'){
+            return (book.rating === 4 ||
+                    book.rating === 5);
+          }
+          else{
+            return book.rating === 5;
+          }
         });
       }
     res.render('books/index', {
@@ -61,7 +91,8 @@ router.post('/', async (req, res) => {
     publishDate: new Date(req.body.publishDate),
     description: req.body.description,
     price: req.body.price,
-    genre: req.body.genre
+    genre: req.body.genre,
+    rating: req.body.rating
   });
 
   saveCover(book, req.body.cover);
