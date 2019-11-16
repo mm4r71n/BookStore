@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Book = require('../models/book');
 const Author = require('../models/author');
+const Comment = require('../models/comment');
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif'];
 
 //All books Home Page
@@ -183,6 +184,23 @@ router.post('/rate/:bookID', async (req, res) => {
 
 })
 
+// post new comment
+router.post('/comment/:bookID', async (req, res) => {
+  try {
+    let newComment = new Comment(
+      {
+        content: req.body.comment,
+        bookID: req.params.bookID
+      }
+    )
+    await newComment.save()
+  } catch (error) {
+    console.log(error)
+  } finally {
+    res.redirect(`/books/${req.params.bookID}`)
+  }
+})
+
 async function renderNewPage(res, book, hasError = false) {
   try {
     const authors = await Author.find({});
@@ -200,7 +218,8 @@ async function renderNewPage(res, book, hasError = false) {
 //Show detail of the book
 router.get('/:bookID', async (req, res) => {
   const book = await Book.find({ _id: req.params.bookID });
-  res.render('books/bookDetails', { book: book[0] });
+  const comments = await Comment.find({ 'bookID': book[0].id });
+  res.render('books/bookDetails', { book: book[0], comments });
 });
 router.get('/:id', async (req, res) => {
   try {
