@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const wishlistSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -6,18 +6,19 @@ const wishlistSchema = new mongoose.Schema({
   bookId: mongoose.Schema.Types.ObjectId,
   users: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User"
   },
   _id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Book'
-  }
+    ref: "Book"
+  },
+  wishlistNum: mongoose.Schema.Types.Number
 });
 
-wishlistSchema.virtual('_wishlist', {
-  ref: 'Book',
-  localField: 'bookId',
-  foreignField: '_id'
+wishlistSchema.virtual("_wishlist", {
+  ref: "Book",
+  localField: "bookId",
+  foreignField: "_id"
 });
 
-module.exports = mongoose.model('Wishlist', wishlistSchema);
+module.exports = mongoose.model("Wishlist", wishlistSchema);
