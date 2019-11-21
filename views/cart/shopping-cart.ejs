@@ -4,6 +4,7 @@
             <ul class="list-group">
                 <%books.forEach(function(book) { %>
                     <li class="list-group-item">
+                        <img height="150" width="100" src="<%= book.item.coverImagePath %>">
                         <strong><%= book.item.title %></strong>
                         <span class="badge badge-success">$<%= book.price %></span>
                         <div class="btn-group">
