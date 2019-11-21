@@ -201,8 +201,14 @@
                             Comment panel
                         </div>
                         <div class="panel-body">
-                          <form action="/books/comment/<%=book.id%>" method="post">
+                          <form action="/books/comment/<%=book.id%>/<%=userID%>" method="post">
                               <textarea name="comment" class="form-control" placeholder="write a comment..." rows="3"></textarea>
+                              <br>
+                              <div class="custom-control custom-switch pull-right">
+                                <input type="checkbox" name="showusername" class="custom-control-input" id="showusername">
+                                <label class="custom-control-label" for="showusername">Show Username</label>
+                              </div>
+                              <br>
                               <br>
                               <button type="submit" class="btn btn-info pull-right">Post</button>
                           </form>
@@ -221,7 +227,7 @@
                                           <span class="text-muted pull-right">
                                               <small class="text-muted"><%= timeDiff(+new Date, comment.createdAt) %></small>
                                           </span>
-                                          <strong class="text-success">@anonymous</strong>
+                                          <strong class="text-success">@<%= comment.showUsername ? comment.authorUsername : 'anonymous' %></strong>
                                           <p>
                                               <%= comment.content %>
                                           </p>

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/user');
 const Book = require('../models/book');
 const Author = require('../models/author');
 const Comment = require('../models/comment');
@@ -185,10 +186,16 @@ router.post('/rate/:bookID', async (req, res) => {
 })
 
 // post new comment
-router.post('/comment/:bookID', async (req, res) => {
+router.post('/comment/:bookID/:userID', async (req, res) => {
+  console.log('switch value...')
+  console.log(req.body.showusername)
   try {
+    const user = await User.findOne({_id: req.params.userID})
     let newComment = new Comment(
       {
+        authorID: user.id,
+        authorUsername: 'placeholder_username',
+        showUsername: req.body.showusername !== undefined,
         content: req.body.comment,
         bookID: req.params.bookID
       }
@@ -219,7 +226,8 @@ async function renderNewPage(res, book, hasError = false) {
 router.get('/:bookID', async (req, res) => {
   const book = await Book.find({ _id: req.params.bookID });
   const comments = await Comment.find({ 'bookID': book[0].id });
-  res.render('books/bookDetails', { book: book[0], comments });
+  const user = await User.findOne({_id: req.user._id})
+  res.render('books/bookDetails', { book: book[0], comments, userID: user.id });
 });
 router.get('/:id', async (req, res) => {
   try {
