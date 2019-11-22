@@ -12,12 +12,6 @@ router.get('/', async (req, res) => {
     books = await Book.find({}).limit(10);
     const authors = await Author.find({});
     
-      if(typeof req.params.filter !== 'undefined'){
-        console.log(String(req.params.filter));
-        books = books.filter(function(book){
-          return book.genre == String(req.params.filter);
-        });
-      }
     res.render('books/index', {
       books: books,
       authors: authors,
@@ -37,7 +31,8 @@ router.get('/show-books/:filter?', async (req, res) => {
       if(typeof req.params.filter !== 'undefined'){
         books = books.filter(function(book){
           //if filter is for genre do this
-          if(req.params.filter !== '1star' &&
+          if(req.params.filter !== '0star' &&
+          req.params.filter !== '1star' &&
           req.params.filter !== '2star' &&
           req.params.filter !== '3star' &&
           req.params.filter !== '4star' &&
@@ -45,6 +40,9 @@ router.get('/show-books/:filter?', async (req, res) => {
             return book.genre == String(req.params.filter);
           }
           //if filter is a rating, do this  
+          else if(req.params.filter === '0star'){
+            return (book.rating === 0);
+          } 
           else if(req.params.filter === '1star'){
             return (book.rating === 1 ||
                     book.rating === 2 || book.rating === 3 ||
@@ -93,17 +91,20 @@ router.get('/show-books/:filter?/:page?', async (req, res) => {
     const authors = await Author.find({});
     
       if(typeof req.params.filter !== 'undefined'){
-        console.log(String(req.params.filter));
         books = books.filter(function(book){
           //if filter is for genre do this
-          if(req.params.filter !== '1star' &&
+          if(req.params.filter !== '0star' &&
+          req.params.filter !== '1star' &&
           req.params.filter !== '2star' &&
           req.params.filter !== '3star' &&
           req.params.filter !== '4star' &&
           req.params.filter !== '5star'){
             return book.genre == String(req.params.filter);
           }
-          //if filter is a rating, do this  
+          //if filter is a rating, do this 
+          else if(req.params.filter === '0star'){
+            return (book.rating === 0);
+          } 
           else if(req.params.filter === '1star'){
             return (book.rating === 1 ||
                     book.rating === 2 || book.rating === 3 ||
