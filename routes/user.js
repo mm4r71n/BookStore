@@ -2,12 +2,16 @@ const express = require('express')
 const router = express.Router()
 var csrf = require('csurf')
 var passport = require('passport')
+const User = require('../models/user');
 
 var csrfProtection = csrf()
 router.use(csrfProtection)
 
 router.get('/profile', isLoggedIn, (req, res, next) => {
-  res.render('user/profile')
+  var user = req.user
+  res.render('user/profile', { 
+    user: user
+  })
 })
 
 router.get('/logout', isLoggedIn, (req, res, next) => {
@@ -24,11 +28,12 @@ router.get('/signup', (req,res, next) => {
   res.render('user/signup', {
       csrfToken: req.csrfToken(),
       messages: messages,
-      hasErrors: messages.length > 0
+      hasErrors: messages.length > 0,
+      user: new User()
   })
 })
 router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/user/profile',
+  successRedirect: '/user/profile/',
   failureRedirect: '/user/signup',
   failureFlash: true
 }))

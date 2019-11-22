@@ -35,8 +35,11 @@ passport.use('local-signup', new localStrategy({
             return done(null, false, {message: 'Email is already in use'})
         }
         var newUser = new User()
+        newUser.name = req.body.name
         newUser.email = email
         newUser.password = newUser.encryptPassword(password)
+        newUser.address = req.body.address
+        newUser.creditcard = req.body.creditcard
         newUser.save(function(err, result) {
             if (err) {
                 return done(err)

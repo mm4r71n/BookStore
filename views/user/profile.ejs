@@ -1,1 +1,58 @@
-<h2>User Profile</h2>
+<h2>Create User Profile</h2>
+    <div class="content py-5  bg-light">
+    <div class="container">
+        <div class="row">
+             <div class="col-md-8 offset-md-2">
+                        <span class="anchor" id="formUserEdit"></span>
+                       <!-- form user info -->
+                        <div class="card card-outline-secondary">
+                            <div class="card-header">
+                                <h3 class="mb-0">User Information</h3>
+                            </div>
+                            <div class="card-body">
+                                <form action="/newuser" method="post" class="form" role="form" autocomplete="off">
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Name</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="text" value="<%= user.name %>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Email</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="email" value="<%= user.email %>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Home Address</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="text" value="<%= user.address %>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Credit Card Number</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="text" value="<%= user.creditcard %>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label form-control-label">Shipping Address</label>
+                                            <div class="col-lg-9">
+                                                <input class="form-control" type="text" value="<%= user.address %>">
+                                            </div>
+                                        </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label"></label>
+                                        <div class="col-lg-9">
+                                            <input type="submit" class="btn btn-primary" value="Edit">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /form user info -->
+    
+                    </div>
+        </div>
+    </div>
+    </div>
