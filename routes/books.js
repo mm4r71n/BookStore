@@ -188,8 +188,6 @@ router.post('/rate/:bookID', async (req, res) => {
 
 // post new comment
 router.post('/comment/:bookID/:userID', async (req, res) => {
-  console.log('switch value...')
-  console.log(req.body.showusername)
   try {
     const user = await User.findOne({_id: req.params.userID})
     let newComment = new Comment(
@@ -227,8 +225,12 @@ async function renderNewPage(res, book, hasError = false) {
 router.get('/:bookID', async (req, res) => {
   const book = await Book.find({ _id: req.params.bookID });
   const comments = await Comment.find({ 'bookID': book[0].id });
-  const user = await User.findOne({_id: req.user._id})
-  res.render('books/bookDetails', { book: book[0], comments, userID: user.id });
+  if (req.user !== undefined) {
+    const user = await User.findOne({_id: req.user._id});
+    res.render('books/bookDetails', { book: book[0], comments, userID: user.id });
+  } else {
+    res.render('books/bookDetails', { book: book[0], comments, userID: -1 });
+  }
 });
 router.get('/:id', async (req, res) => {
   try {
