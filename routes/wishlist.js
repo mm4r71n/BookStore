@@ -67,55 +67,14 @@ router.post("/", async (req, res) => {
 
 router.get("/:id", async (req,res) => {
   console.log("id", req.params.id.trim())
-  // const list = await Wishlist.remove({
-  //   _id : req.params.id
-  // },
-  //  )
+
   const res1 = await Wishlist.deleteOne({ bookId: req.params.id.trim()} , function (err) {
     if(err) console.log(err);
     console.log("Successful deletion");
 
   })
-  console.log("RESULT --->", res1.deletedCount)
   
   res.redirect("/wishlist/list");
-  
-
-//   const res = await Character.deleteOne({ name: 'Eddard Stark' });
-// // `1` if MongoDB deleted a doc, `0` if no docs matched the filter `{ name: ... }`
-// res.deletedCount;
-
-  // .exec(function(err, wishes) {
-  //   if(err) {
-  //     console.log("ERROR", err)
-  //   }
-  //   res.redirect("/wishlist/list");
-  // });
-  // .exec(function(err, wishes) {
-  //   if (err) {
-  //     onsole.log("ERROR", err);
-  //   }
-  //   res.render("wishlist/list", { wishes: wishes });
-  // })
-  // const wishlist = new Wishlist({
-  //   id: req.params.id,
-  // });
-  // console.log("/wishlish", list)
 })
-
-// if(mongoose.Types.ObjectId.isValid(id)) {
-//   User.remove({_id: id})
-//     .then((docs)=>{
-//       if(docs) {
-//         resolve({"success":true,data:docs});
-//       } else {
-//         reject({"success":false,data:"no such user exist"});
-//       }
-//   }).catch((err)=>{
-//      reject(err);
-//   })
-// }else {
-//   reject({"success":false,data:"please provide correct Id"});
-// }
 
 module.exports = router;
