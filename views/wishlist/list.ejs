@@ -1,5 +1,3 @@
-<h2 class="title">Wishlist</h2>
-
 <style>
   table {
     font-family: arial, sans-serif;
@@ -29,27 +27,94 @@
   }
 </style>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Genre</th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="container">
 
-  <% wishes.forEach(wish => { %>
-  <tr>
-    <td><%= wish.newWishList[0].title %></td>
-    <td><%= wish.newWishList[0].genre %></td>
-    <td class="center">
-      <a 
-          href="/wishlist/<%= wish.newWishList[0]._id %>" >
+  <hr />
+  <h2 class="title mt-5">Wishlist 1</h2>
+
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Genre</th>
+      <th></th>
+    </tr>
+
+    <% wishes.wishlist1.forEach(wish => { %>
+    <tr>
+      <td>
+        <a href="/books/<%= wish.newWishList[0]._id %>" >
+        <%= wish.newWishList[0].title %>
+      </a>
+      </td>
+      <td><%= wish.newWishList[0].genre %></td>
+      <td class="center">
+        <a href="/wishlist/<%= wish._id %>">
           Remove
         </a>
 
-    </td>
-    <td class="center"><a href="#">Add to Cart</a></td>
-  </tr>
-  <% }); %>
+      </td>
+    </tr>
+    <% }); %>
 
-</table>
+  </table>
+
+  <hr />
+
+  <h2 class="title mt-5">Wishlist 2</h2>
+
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Genre</th>
+      <th></th>
+    </tr>
+
+    <% wishes.wishlist2.forEach(wish => { %>
+    <tr>
+        <td>
+            <a href="/books/<%= wish.newWishList[0]._id %>" >
+            <%= wish.newWishList[0].title %>
+          </a>
+          </td>
+      <td><%= wish.newWishList[0].genre %></td>
+      <td class="center">
+        <a href="/wishlist/<%= wish._id %>">
+          Remove
+        </a>
+
+      </td>
+    </tr>
+    <% }); %>
+
+  </table>
+
+  <hr />
+
+  <h2 class="title mt-5">Wishlist 3</h2>
+
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Genre</th>
+      <th></th>
+    </tr>
+
+    <% wishes.wishlist3.forEach(wish => { %>
+    <tr>
+        <td>
+            <a href="/books/<%= wish.newWishList[0]._id %>" >
+            <%= wish.newWishList[0].title %>
+          </a>
+          </td>
+      <td><%= wish.newWishList[0].genre %></td>
+      <td class="center">
+        <a href="/wishlist/<%= wish._id %>">
+          Remove
+        </a>
+
+      </td>
+    </tr>
+    <% }); %>
+
+  </table>
+</div>

@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
       userId: ObjectId("5da9fbd86c2ebb1128a8eab0")
     })
       .populate("user")
-      .exec((err, books) => {});
+      .exec((err, books) => { });
     res.render("wishlist", { wishes: wishes });
   } catch (error) {
     console.log("error on list", error);
@@ -44,11 +44,28 @@ router.get("/list", async (req, res) => {
         as: "newWishList"
       }
     }
-  ]).exec(function(err, wishes) {
+  ]).exec(function (err, wishes) {
     if (err) {
       console.log("ERROR", err);
     }
-    res.render("wishlist/list", { wishes: wishes });
+    var wishlist1 = [];
+    var wishlist2 = [];
+    var wishlist3 = [];
+    const newlist = wishes.map((wish) => {
+      if (wish.wishlistNum === 1) {
+        wishlist1.push(wish)
+      }
+      if (wish.wishlistNum === 2) {
+        wishlist2.push(wish)
+      }
+      if (wish.wishlistNum === 3) {
+        wishlist3.push(wish)
+      }
+    })
+
+    const newList = { wishlist1: wishlist1, wishlist2: wishlist2, wishlist3: wishlist3 }
+
+    res.render("wishlist/list", { wishes: newList });
   });
 });
 
@@ -65,15 +82,14 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req,res) => {
+router.get("/:id", async (req, res) => {
   console.log("id", req.params.id.trim())
 
-  const res1 = await Wishlist.deleteOne({ bookId: req.params.id.trim()} , function (err) {
-    if(err) console.log(err);
+  const res1 = await Wishlist.deleteOne({ _id: req.params.id.trim() }, function (err) {
+    if (err) console.log(err);
     console.log("Successful deletion");
-
   })
-  
+
   res.redirect("/wishlist/list");
 })
 
