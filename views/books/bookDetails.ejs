@@ -144,7 +144,10 @@
           </div>
           <div class="col-md-7 col-sm-12 book-desc">
               <h2><%= book.title %></h2>
-                  <h3><%= book.author %></h3>
+                  <h3><%= authors.name %>
+                    <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
+                    <%= author.name %> <% } }) %>           
+                  </h3>
                     <p class="description"><%= book.description %></p>
                     <div class="clearfix">
                       <div class="price pull-left"><%= book.price %></div>
@@ -222,10 +225,7 @@
                           </form>
                             <div class="clearfix"></div>
                             <hr>
-                            <ul class="media-list">
-
-
-
+                            <ul class="media-list">                    
                                 <% comments.forEach(function(comment) { %>
                                   <li class="media">
                                       <a href="#" class="pull-left">
