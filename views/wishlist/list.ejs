@@ -19,9 +19,11 @@
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+
   .title {
     margin-left: 15px;
   }
+
   .center {
     text-align: center;
   }
@@ -32,15 +34,21 @@
     <th>Title</th>
     <th>Genre</th>
     <th></th>
-    <th></th>    
+    <th></th>
   </tr>
 
   <% wishes.forEach(wish => { %>
   <tr>
     <td><%= wish.newWishList[0].title %></td>
     <td><%= wish.newWishList[0].genre %></td>
-    <td class="center"><a href="#">Remove</a></td>
-    <td class="center"><a href="#">Add to Cart</a></td>    
+    <td class="center">
+      <a 
+          href="/wishlist/<%= wish.newWishList[0]._id %>" >
+          Remove
+        </a>
+
+    </td>
+    <td class="center"><a href="#">Add to Cart</a></td>
   </tr>
   <% }); %>
 
