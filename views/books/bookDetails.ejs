@@ -133,24 +133,33 @@
   font-size: 18px;
 }
 
-.enlargeable:hover,.enlargeable:focus {
-  transform: scale(1.5);
-}
   </style>
   <div class="container">
       <div class="row">
           <div class="col-md-3 offset-md-1 col-sm-12">
-              <img src=<%= book.coverImagePath %> alt="..." class="img-responsive enlargeable">
-          </div>
+              <img
+                id="currentImg"
+                onclick="popUpwin()"
+                src="<%= book.coverImagePath %>"
+                height="280"
+                width="260"
+              />
+  <script>
+    //fundtion to create a window with enlarged img of the book. 
+    function popUpwin() {
+      window.open("<%= book.coverImagePath %>","My Window", "height=650,width=600")
+    }
+  </script>
+          </div> 
           <div class="col-md-7 col-sm-12 book-desc">
               <h2><%= book.title %></h2>
-                  <h3>
+                  <h3> more books by 
                     <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
-                    <%= author.name %> <% } }) %>           
+                    <%= author.name %> <% } }) %>         
                   </h3>
                     <p class="description"><%= book.description %></p>
                     <div class="clearfix">
-                      <div class="price pull-left"><%= book.price %></div>
+                      <div class="price pull-left"><b>Price: </b><%= book.price %></div>
                       <div class="pull-right">
                           <form id="rating-form" method="post" class="rating" action="/books/rate/<%=book.id%>">
                               <label>
