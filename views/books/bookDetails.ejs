@@ -153,13 +153,19 @@
           </div> 
           <div class="col-md-7 col-sm-12 book-desc">
               <h2><%= book.title %></h2>
-                  <h3> more books by 
-                    <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
-                    <%= author.name %> <% } }) %>         
+                  <h3>  
+                    <i><% authors.forEach(author => { %> <% if (author.id == book.author){ %>
+                      more books by <%= author.name %> <% } }) %></i>  
                   </h3>
                     <p class="description"><%= book.description %></p>
                     <div class="clearfix">
                       <div class="price pull-left"><b>Price: </b><%= book.price %></div>
+                        <br>About the author:</br>
+                        <p>
+                          <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
+                          <%= author.bio %> <% } }) %>
+                          </p>
+                        
                       <div class="pull-right">
                           <form id="rating-form" method="post" class="rating" action="/books/rate/<%=book.id%>">
                               <label>
@@ -304,6 +310,5 @@
         
             </div>
         </div>
-      
   </div>
 </div>
