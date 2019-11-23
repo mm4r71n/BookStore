@@ -132,22 +132,142 @@
 .description {
   font-size: 18px;
 }
-
-.enlargeable:hover,.enlargeable:focus {
-  transform: scale(1.5);
+ /* Style the Image Used to Trigger the Modal */
+ #myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
 }
-  </style>
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #a0eaf0;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.4s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+} 
+
+</style>
   <div class="container">
       <div class="row">
-          <div class="col-md-3 offset-md-1 col-sm-12">
-              <img src=<%= book.coverImagePath %> alt="..." class="img-responsive enlargeable">
-          </div>
-          <div class="col-md-7 col-sm-12 book-desc">
-              <h2><%= book.title %></h2>
-                  <h3><%= book.author %></h3>
-                    <p class="description"><%= book.description %></p>
+          <div class="col-md-10 offset-md-3 col-sm-12">
+              <img id = "currentbook" src = "<%= book.coverImagePath %>" alt = "Book Cover" height="210" width="180" onMouseOver="this.style.cursor='pointer'">
+              <!-- The Modal -->
+                <div id="thisModal" class="modal">
+
+                <!-- The Close Button -->
+                <span class="close">&times;</span>
+              
+                <!-- Modal Content (The Image) -->
+                <img class="modal-content" id="img01">  
+                       
+                <!-- Modal Caption (Image Text) -->
+                <div id="caption"></div>
+            </div>
+  <script>
+    // Get the modal
+    var modal = document.getElementById("thisModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("currentbook");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    //closes modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    } 
+  </script>
+          </div> 
+          <div class="col-md-10 col-sm-12 book-desc">
+              <center><h2><%= book.title %></h2></center>
+                    <p class="description"><font size = "2.5"><%= book.description %></font></p>
                     <div class="clearfix">
-                      <div class="price pull-left"><%= book.price %></div>
+                      <div class="price pull-left"><b>Price:</b><%= book.price %>&nbsp;</div>
+                      <div class="price pull-left"><b> Genre: </b><%= book.genre %>&nbsp;</div>
+                      <div class="date pull-left"><b> release date: </b><%= book.publishDate %></div>
+                      <div class="bio row-md-6">
+                       <br></br>
+                       <font size = 2.5>About the author:
+                          <p>
+                            <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
+                            <%= author.bio %> <% } }) %>
+                          </p>
+                      </font>
+                      </div>           
                       <div class="pull-right">
                           <form id="rating-form" method="post" class="rating" action="/books/rate/<%=book.id%>">
                               <label>
@@ -222,10 +342,7 @@
                           </form>
                             <div class="clearfix"></div>
                             <hr>
-                            <ul class="media-list">
-
-
-
+                            <ul class="media-list">                    
                                 <% comments.forEach(function(comment) { %>
                                   <li class="media">
                                       <a href="#" class="pull-left">
@@ -291,10 +408,8 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-        
+                </div>   
             </div>
         </div>
-      
   </div>
 </div>

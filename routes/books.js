@@ -225,11 +225,12 @@ async function renderNewPage(res, book, hasError = false) {
 router.get('/:bookID', async (req, res) => {
   const book = await Book.find({ _id: req.params.bookID });
   const comments = await Comment.find({ 'bookID': book[0].id });
+  const authors = await Author.find({});
   if (req.user !== undefined) {
     const user = await User.findOne({_id: req.user._id});
-    res.render('books/bookDetails', { book: book[0], comments, userID: user.id });
+    res.render('books/bookDetails', { book: book[0], comments, userID: user.id, authors: authors});
   } else {
-    res.render('books/bookDetails', { book: book[0], comments, userID: -1 });
+    res.render('books/bookDetails', { book: book[0], comments, userID: -1, authors: authors});
   }
 });
 router.get('/:id', async (req, res) => {

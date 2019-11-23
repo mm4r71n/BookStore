@@ -88,11 +88,19 @@
     <% books.forEach(function(book) { %>
     <li class="list-group-item">
       <a href="/books/<%= book._id %>">
+<<<<<<< HEAD
         <div class="text-center">
           <img height="150" width="100" src="<%= book.coverImagePath %>" />
         </div>
         <div class="text-center mt-2" data-rows=3>
           <strong><%= book.title %></strong>
+=======
+      <div class ="text-center">
+        <img height="150" width="100" src="<%= book.coverImagePath %>" />
+      </div>
+        <div class ="text-center" data-rows=3>
+          <%= book.title %>
+>>>>>>> 1181708aa1482e626862741700c7a0e77f6a0705
         </div>
       </a>
       <div class="text-center mt-3" data-rows=2>
