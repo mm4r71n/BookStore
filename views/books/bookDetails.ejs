@@ -144,7 +144,7 @@
           </div>
           <div class="col-md-7 col-sm-12 book-desc">
               <h2><%= book.title %></h2>
-                  <h3><%= authors.name %>
+                  <h3>
                     <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
                     <%= author.name %> <% } }) %>           
                   </h3>
