@@ -136,38 +136,38 @@
   </style>
   <div class="container">
       <div class="row">
-          <div class="col-md-3 offset-md-1 col-sm-12">
+          <div class="col-md-10 offset-md-4 col-sm-12">
               <img
                 id="currentImg"
                 onclick="popUpwin()"
+                onMouseOver="this.style.cursor='pointer'"
                 src="<%= book.coverImagePath %>"
-                height="280"
-                width="260"
+                height="210"
+                width="180"
               />
   <script>
     //fundtion to create a window with enlarged img of the book. 
     function popUpwin() {
-      window.open("<%= book.coverImagePath %>","My Window", "height=650,width=600")
+      window.open("<%= book.coverImagePath %>","My Window", "height=750,width=650")
     }
   </script>
           </div> 
-          <div class="col-md-7 col-sm-12 book-desc">
-              <h2><%= book.title %></h2>
-                  <h3>  
-                    <i><% authors.forEach(author => { %> <% if (author.id == book.author){ %>
-                      more books by <%= author.name %> <% } }) %></i>  
-                  </h3>
-                    <p class="description"><%= book.description %></p>
+          <div class="col-md-10 col-sm-12 book-desc">
+              <center><h2><%= book.title %></h2></center>
+                    <p class="description"><font size = "2.5"><%= book.description %></font></p>
                     <div class="clearfix">
-                      <div class="price pull-left"><b>Price: </b><%= book.price %></div>
-                      <div class="price pull-left"><b> Genre: </b><%= book.genre %></div>
-                      <div class="price pull-left"><b> release date: </b><%= book.publishDate %></div>
-                        <br>About the author:</br>
-                        <p>
-                          <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
-                          <%= author.bio %> <% } }) %>
-                        </p>
-                        
+                      <div class="price pull-left"><b>Price:</b><%= book.price %>&nbsp;</div>
+                      <div class="price pull-left"><b> Genre: </b><%= book.genre %>&nbsp;</div>
+                      <div class="date pull-left"><b> release date: </b><%= book.publishDate %></div>
+                      <div class="bio row-md-6">
+                       <br></br>
+                       <font size = 2.5>About the author:
+                          <p>
+                            <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
+                            <%= author.bio %> <% } }) %>
+                          </p>
+                      </font>
+                      </div> 
                       <div class="pull-right">
                           <form id="rating-form" method="post" class="rating" action="/books/rate/<%=book.id%>">
                               <label>
