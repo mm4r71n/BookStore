@@ -1,69 +1,7 @@
 <h2 class="ml-5">All Books</h2>
-<!-- <div>
-  <table id="book table" class="display" style="width:100%">
-    <thead>
-      <tr>
-        <th>Cover</th>
-        <th>Title</th>
-        <th>Genre</th>
-        <th>Author</th>
-        <th>Publish Date</th>
-        <th>Price</th>
-        <th>Rating</th>
-        <th>Wishlist Selection</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% books.forEach(function(book) { %>
-      <tr>
-        <td>
-          <img height="150" width="100" src="<%= book.coverImagePath %>" />
-        </td>
-        <td><a href="/books/<%= book._id %>"><%= book.title %></a></td>
-        <td><%= book.genre %></td>
-        <td>
-          <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
-          <%= author.name %> <% } }) %>
-        </td>
-        <td><%= book.publishDate %></td>
-        <td><%= book.price %></td>
-        <td>Null</td>
-        <td>
-          <a href="/wishlist/<%= book._id %>/5da9fbd86c2ebb1128a8eab0"
-            >Add to Wishlist</a>
-        </td>
-      </tr>
-      <% }); %>
-    </tbody>
-    <tfoot>
-      <tr>
-        <th>Cover</th>
-        <th>Title</th>
-        <th>Genre</th>
-        <th>Author</th>
-        <th>Release Date</th>
-        <th>Price</th>
-        <th>Rating</th>
-        <th>Wishlist Selection</th>
-      </tr>
-    </tfoot>
-  </table>
-</div> -->
 
-<!--<div class ="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Filter by
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dopdownMenuButton">
-    <a class="dropdown-item" href="#"> Fiction</a>
-    <a class="dropdown-item" href="#"> Romance</a>
-    <a class="dropdown-item" href="#"> Horror</a>
-  </div>
-</div>-->
-</head>
-
+<!-- filter dropdown -->
 <body>
-
     <div class="dropdown ml-5">
       <button onclick="myFunction()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
         data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
@@ -73,6 +11,7 @@
         <a href="/books/show-books/Fantasy/">Fantasy</a>
         <a href="/books/show-books/Romance/">Romance</a>
         <a href="/books/show-books/Horror/">Horror</a>
+        <a href="/books/show-books/BestSellers/">Best Sellers</a>
         <a href="/books/show-books/0star/">Unrated</a>
         <a href="/books/show-books/1star/"><span>&#x2605;</span></a>
         <a href="/books/show-books/2star/"><span>&#x2605;&#x2605;</span></a>
@@ -82,6 +21,24 @@
       </div>
     </div>
 </body>
+
+<!-- sort dropdown -->
+<body>
+  <div class="dropdown ml-5">
+    <button onclick="myFunction()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+      Sort by
+    </button>
+    <div class="dropdown-content">
+      <a href="title">Title</a>
+      <a href="author">Author</a>
+      <a href="price">Price</a>
+      <a href="bookrating">Book Rating</a>
+      <a href="publishdate">Publish Date</a>
+    </div>
+  </div>
+</body>
+
 
 <div class="w-25 p-3">
   <ul class="list-group list-group-horizontal">

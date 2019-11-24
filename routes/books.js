@@ -25,10 +25,11 @@ router.get('/', async (req, res) => {
 //Using this to filter the books
 router.get('/show-books/:filter?', async (req, res) => {
   try {
-    books = await Book.find({}).limit(10);
+    books = await Book.find({});
     const authors = await Author.find({});
     
       if(typeof req.params.filter !== 'undefined'){
+        //books = await Book.find({genre: req.params.filter}).limit(10);
         books = books.filter(function(book){
           //if filter is for genre do this
           if(req.params.filter !== '0star' &&
@@ -36,7 +37,9 @@ router.get('/show-books/:filter?', async (req, res) => {
           req.params.filter !== '2star' &&
           req.params.filter !== '3star' &&
           req.params.filter !== '4star' &&
-          req.params.filter !== '5star'){
+          req.params.filter !== '5star' &&
+          req.params.filter !== 'BestSellers'){
+            books = Book.find({genre: req.params.filter});
             return book.genre == String(req.params.filter);
           }
           //if filter is a rating, do this  
@@ -64,10 +67,14 @@ router.get('/show-books/:filter?', async (req, res) => {
           else if(req.params.filter === '5star'){
             return book.rating === 5;
           }
+          else if(req.params.filter === 'BestSellers'){
+            return (book.rating === 5 || book.genre === 'Romance');
+          }
           else{
-            return book;
+
           }
         });
+        books = books.slice(0, 10);
       }
     res.render('books/index', {
       books: books,
@@ -79,18 +86,14 @@ router.get('/show-books/:filter?', async (req, res) => {
   }
 });
 
-//pagination
-router.get('/show-books/:filter?/:page?', async (req, res) => {
+//sort with filter on
+router.get('/show-books/:filter?/:sortfilter?', async (req, res) => {
   try {
-    if(parseInt(req.params.page) === 1){
-      books = await Book.find({}).limit(10);
-    }
-    else{
-      books = await Book.find({}).skip(10).limit(10);
-    }
+    books = await Book.find({});
     const authors = await Author.find({});
     
       if(typeof req.params.filter !== 'undefined'){
+        //books = await Book.find({genre: req.params.filter}).limit(10);
         books = books.filter(function(book){
           //if filter is for genre do this
           if(req.params.filter !== '0star' &&
@@ -98,10 +101,12 @@ router.get('/show-books/:filter?/:page?', async (req, res) => {
           req.params.filter !== '2star' &&
           req.params.filter !== '3star' &&
           req.params.filter !== '4star' &&
-          req.params.filter !== '5star'){
+          req.params.filter !== '5star' &&
+          req.params.filter !== 'BestSellers'){
+            books = Book.find({genre: req.params.filter});
             return book.genre == String(req.params.filter);
           }
-          //if filter is a rating, do this 
+          //if filter is a rating, do this  
           else if(req.params.filter === '0star'){
             return (book.rating === 0);
           } 
@@ -126,10 +131,45 @@ router.get('/show-books/:filter?/:page?', async (req, res) => {
           else if(req.params.filter === '5star'){
             return book.rating === 5;
           }
+          else if(req.params.filter === 'BestSellers'){
+            return (book.rating === 5 || book.genre === 'Romance');
+          }
           else{
-            return book;
+
           }
         });
+
+        if(req.params.sortfilter === 'title'){
+          books.sort((a, b) => (a.title > b.title) ? 1 : -1);
+          books = books.slice(0, 10);
+        }
+        else if(req.params.sortfilter === 'author'){
+          books.sort((a, b) => (b.author > a.author) ? 1 : -1);
+          books = books.slice(0, 10);
+        }
+        else if(req.params.sortfilter === 'price'){
+          books.sort((a, b) => (a.price > b.price) ? 1 : -1);
+          books = books.slice(0, 10);
+        }
+        else if(req.params.sortfilter === 'bookrating'){
+          books.sort((a, b) => (a.rating > b.rating) ? 1 : -1);
+          books = books.slice(0, 10);
+        }
+        else if(req.params.sortfilter === 'publishdate'){
+          books.sort((a, b) => (a.publishDate > b.publishDate) ? 1 : -1);
+          books = books.slice(0, 10);
+        }
+        else if(req.params.sortfilter === '1'){
+          books = books.slice(0, 10);
+        }
+        else if(req.params.sortfilter === '2'){
+          books = books.slice(10, 20);
+        }
+        else{
+
+        }
+          
+        //books = books.slice(0, 10);
       }
     res.render('books/index', {
       books: books,
@@ -140,6 +180,77 @@ router.get('/show-books/:filter?/:page?', async (req, res) => {
     res.redirect('/');
   }
 });
+
+//pagination
+// router.get('/show-books/:filter?/:page?', async (req, res) => {
+//   try {
+//       books = await Book.find({});
+//       const authors = await Author.find({});
+    
+//       if(typeof req.params.filter !== 'undefined'){
+//         books = books.filter(function(book){
+//           //if filter is for genre do this
+//           if(req.params.filter !== '0star' &&
+//           req.params.filter !== '1star' &&
+//           req.params.filter !== '2star' &&
+//           req.params.filter !== '3star' &&
+//           req.params.filter !== '4star' &&
+//           req.params.filter !== '5star'){
+//             books = Book.find({genre: req.params.filter});
+//             return book.genre == String(req.params.filter);
+//           }
+//           //if filter is a rating, do this 
+//           else if(req.params.filter === '0star'){
+//             return (book.rating === 0);
+//           } 
+//           else if(req.params.filter === '1star'){
+//             return (book.rating === 1 ||
+//                     book.rating === 2 || book.rating === 3 ||
+//                     book.rating === 4 || book.rating === 5);
+//           }
+//           else if(req.params.filter === '2star'){
+//             return (book.rating === 2 ||
+//                     book.rating === 3 || book.rating === 4 ||
+//                     book.rating === 5);
+//           }
+//           else if(req.params.filter === '3star'){
+//             return (book.rating === 3 ||
+//                     book.rating === 4 || book.rating === 5);
+//           }
+//           else if(req.params.filter === '4star'){
+//             return (book.rating === 4 ||
+//                     book.rating === 5);
+//           }
+//           else if(req.params.filter === '5star'){
+//             return book.rating === 5;
+//           }
+//           else{
+//             return book;
+//           }
+//         });
+
+//         if(parseInt(req.params.page) === '1'){
+//           books = books.slice(0, 10);
+//         }
+//         else if(parseInt(req.params.page === '2')){
+//           books = books.slice(10, 20);
+//         }
+//         else{
+
+//         }
+//       }
+//     res.render('books/index', {
+//       books: books,
+//       authors: authors,
+//       searchOptions: req.query
+//     });
+//   } catch (error) {
+//     res.redirect('/');
+//   }
+// });
+
+//sort with filter on and pagination on 
+
 
 //new book route
 router.get('/new', async (req, res) => {
