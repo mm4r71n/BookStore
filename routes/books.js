@@ -11,11 +11,13 @@ router.get('/', async (req, res) => {
   try {
     books = await Book.find({}).limit(10);
     const authors = await Author.find({});
+    const user = req.user;
     
     res.render('books/index', {
       books: books,
       authors: authors,
-      searchOptions: req.query
+      searchOptions: req.query,
+      user: user
     });
   } catch (error) {
     res.redirect('/');

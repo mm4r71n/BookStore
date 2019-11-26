@@ -40,17 +40,19 @@ router.post('/signup', passport.authenticate('local-signup', {
 
 router.get('/signin', (req, res, next) => {
   var messages = req.flash('error')
+  var user = req.user
   res.render('user/signin', {
       csrfToken: req.csrfToken(),
       messages: messages,
-      hasErrors: messages.length > 0
+      hasErrors: messages.length > 0,
+      user: user
   })
 })
 
 router.post('/signin', passport.authenticate('local-signin', {
-  successRedirect: '/books',
+  successRedirect: '/',
   failureRedirect: '/user/signin',
-  failureFlash: true
+  failureFlash: true,
 }))
 
 module.exports = router

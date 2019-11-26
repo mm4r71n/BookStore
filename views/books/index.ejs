@@ -72,11 +72,13 @@
       <div class="text-center">
         <%= book.price %>
       </div>
+      <% if (user) {%>
       <div class="text-center mt-5">
-        <h6><a href="/wishlist/<%= book._id %>/5da7c89a68ab8d0f8887d0cf/1">Add to Wishlist 1</a></h6>
-        <h6><a href="/wishlist/<%= book._id %>/5da7c89a68ab8d0f8887d0cf/2">Add to Wishlist 2</a></h6>
-        <h6><a href="/wishlist/<%= book._id %>/5da7c89a68ab8d0f8887d0cf/3">Add to Wishlist 3</a></h6>
+        <h6><a href="/wishlist/<%= book._id %>/<%= user._id %>/1">Add to Wishlist 1</a></h6>
+        <h6><a href="/wishlist/<%= book._id %>/<%= user._id %>/2">Add to Wishlist 2</a></h6>
+        <h6><a href="/wishlist/<%= book._id %>/<%= user._id %>/3">Add to Wishlist 3</a></h6>
       </div>
+      <% } %>
     </li>
     <% }); %>
   </ul>
