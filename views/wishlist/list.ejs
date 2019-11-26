@@ -37,21 +37,24 @@
       <th>Title</th>
       <th>Genre</th>
       <th></th>
+      <th></th>
     </tr>
 
     <% wishes.wishlist1.forEach(wish => { %>
     <tr>
       <td>
-        <a href="/books/<%= wish.newWishList[0]._id %>" >
-        <%= wish.newWishList[0].title %>
-      </a>
+        <a href="/books/<%= wish.newWishList[0]._id %>">
+          <%= wish.newWishList[0].title %>
+        </a>
       </td>
       <td><%= wish.newWishList[0].genre %></td>
+      <th>
+        <a href="/add-to-cart/<%=wish.bookId%>" class="btn btn-info" role="button">Add to Cart</a>
+      </th>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
           Remove
         </a>
-
       </td>
     </tr>
     <% }); %>
@@ -67,16 +70,20 @@
       <th>Title</th>
       <th>Genre</th>
       <th></th>
+      <th></th>
     </tr>
 
     <% wishes.wishlist2.forEach(wish => { %>
     <tr>
-        <td>
-            <a href="/books/<%= wish.newWishList[0]._id %>" >
-            <%= wish.newWishList[0].title %>
-          </a>
-          </td>
+      <td>
+        <a href="/books/<%= wish.newWishList[0]._id %>">
+          <%= wish.newWishList[0].title %>
+        </a>
+      </td>
       <td><%= wish.newWishList[0].genre %></td>
+      <th>
+        <a href="/add-to-cart/<%=wish.bookId%>" class="btn btn-info" role="button">Add to Cart</a>
+      </th>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
           Remove
@@ -97,21 +104,24 @@
       <th>Title</th>
       <th>Genre</th>
       <th></th>
+      <th></th>
     </tr>
 
     <% wishes.wishlist3.forEach(wish => { %>
     <tr>
-        <td>
-            <a href="/books/<%= wish.newWishList[0]._id %>" >
-            <%= wish.newWishList[0].title %>
-          </a>
-          </td>
+      <td>
+        <a href="/books/<%= wish.newWishList[0]._id %>">
+          <%= wish.newWishList[0].title %>
+        </a>
+      </td>
       <td><%= wish.newWishList[0].genre %></td>
+      <th>
+        <a href="/add-to-cart/<%=wish.bookId%>" class="btn btn-info" role="button">Add to Cart</a>
+      </th>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
           Remove
         </a>
-
       </td>
     </tr>
     <% }); %>

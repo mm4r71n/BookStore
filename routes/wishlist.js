@@ -34,6 +34,8 @@ router.get("/:bookId/:userId/:wishlistNum", async (req, res) => {
   }
 });
 
+
+
 router.get("/list", async (req, res) => {
   const list = await Wishlist.aggregate([
     {
@@ -62,6 +64,8 @@ router.get("/list", async (req, res) => {
         wishlist3.push(wish)
       }
     })
+
+
 
     const newList = { wishlist1: wishlist1, wishlist2: wishlist2, wishlist3: wishlist3 }
 
