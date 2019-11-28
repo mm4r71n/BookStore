@@ -12,8 +12,7 @@ const wishlistSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Book'
   },
-  wishlistNum: mongoose.Schema.Types.Number,
-  wishlistName: mongoose.Schema.Types.ObjectId
+  wishlistNum: mongoose.Schema.Types.Number
 });
 
 wishlistSchema.virtual('_wishlist', {
