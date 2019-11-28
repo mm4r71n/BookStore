@@ -1,0 +1,8 @@
+<h2>These are book by the same 
+</h2>
+<h3><% books.forEach(function(book) { %>
+    <a href="/books/<%= book.id%>">
+        <img height="150" width="100" src="<%= book.coverImagePath %>">
+    </a>
+<% }); %>
+</h3>
