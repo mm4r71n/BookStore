@@ -20,6 +20,8 @@
 
   .title {
     margin-left: 15px;
+    font-size: 18px;
+    font-weight: 800;
   }
 
   .center {
@@ -28,9 +30,15 @@
 </style>
 
 <div class="container">
-
   <hr />
-  <h2 class="title mt-5">Wishlist 1</h2>
+  <div class="row mt-5">
+    <div class="title col">Wishlist 1</div>
+    <div class="col">
+      <a href="/wishlist/edit/<%= wishes.wishlist1._id %>">
+        Edit
+      </a>
+    </div>
+  </div>
 
   <table>
     <tr>
@@ -42,20 +50,18 @@
     <% wishes.wishlist1.forEach(wish => { %>
     <tr>
       <td>
-        <a href="/books/<%= wish.newWishList[0]._id %>" >
-        <%= wish.newWishList[0].title %>
-      </a>
+        <a href="/books/<%= wish.newWishList[0]._id %>">
+          <%= wish.newWishList[0].title %>
+        </a>
       </td>
       <td><%= wish.newWishList[0].genre %></td>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
           Remove
         </a>
-
       </td>
     </tr>
     <% }); %>
-
   </table>
 
   <hr />
@@ -71,21 +77,19 @@
 
     <% wishes.wishlist2.forEach(wish => { %>
     <tr>
-        <td>
-            <a href="/books/<%= wish.newWishList[0]._id %>" >
-            <%= wish.newWishList[0].title %>
-          </a>
-          </td>
+      <td>
+        <a href="/books/<%= wish.newWishList[0]._id %>">
+          <%= wish.newWishList[0].title %>
+        </a>
+      </td>
       <td><%= wish.newWishList[0].genre %></td>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
           Remove
         </a>
-
       </td>
     </tr>
     <% }); %>
-
   </table>
 
   <hr />
@@ -101,20 +105,18 @@
 
     <% wishes.wishlist3.forEach(wish => { %>
     <tr>
-        <td>
-            <a href="/books/<%= wish.newWishList[0]._id %>" >
-            <%= wish.newWishList[0].title %>
-          </a>
-          </td>
+      <td>
+        <a href="/books/<%= wish.newWishList[0]._id %>">
+          <%= wish.newWishList[0].title %>
+        </a>
+      </td>
       <td><%= wish.newWishList[0].genre %></td>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
           Remove
         </a>
-
       </td>
     </tr>
     <% }); %>
-
   </table>
 </div>
