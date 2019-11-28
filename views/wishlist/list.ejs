@@ -20,8 +20,6 @@
 
   .title {
     margin-left: 15px;
-    font-size: 18px;
-    font-weight: 800;
   }
 
   .center {
@@ -31,14 +29,7 @@
 
 <div class="container">
   <hr />
-  <div class="row mt-5">
-    <div class="title col">Wishlist 1</div>
-    <div class="col">
-      <a href="/wishlist/edit/<%= wishes.wishlist1._id %>">
-        Edit
-      </a>
-    </div>
-  </div>
+  <h2 class="title mt-5">Wishlist 1</h2>
 
   <table>
     <tr>
@@ -57,7 +48,12 @@
       </td>
       <td><%= wish.newWishList[0].genre %></td>
       <th>
-        <a href="/add-to-cart/<%=wish.bookId%>" class="btn btn-info" role="button">Add to Cart</a>
+        <a
+          href="/add-to-cart/<%=wish.bookId%>"
+          class="btn btn-info"
+          role="button"
+          >Add to Cart</a
+        >
       </th>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
@@ -89,7 +85,12 @@
       </td>
       <td><%= wish.newWishList[0].genre %></td>
       <th>
-        <a href="/add-to-cart/<%=wish.bookId%>" class="btn btn-info" role="button">Add to Cart</a>
+        <a
+          href="/add-to-cart/<%=wish.bookId%>"
+          class="btn btn-info"
+          role="button"
+          >Add to Cart</a
+        >
       </th>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
@@ -121,7 +122,12 @@
       </td>
       <td><%= wish.newWishList[0].genre %></td>
       <th>
-        <a href="/add-to-cart/<%=wish.bookId%>" class="btn btn-info" role="button">Add to Cart</a>
+        <a
+          href="/add-to-cart/<%=wish.bookId%>"
+          class="btn btn-info"
+          role="button"
+          >Add to Cart</a
+        >
       </th>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
