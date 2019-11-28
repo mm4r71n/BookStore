@@ -45,6 +45,7 @@
       <th>Title</th>
       <th>Genre</th>
       <th></th>
+      <th></th>
     </tr>
 
     <% wishes.wishlist1.forEach(wish => { %>
@@ -55,6 +56,9 @@
         </a>
       </td>
       <td><%= wish.newWishList[0].genre %></td>
+      <th>
+        <a href="/add-to-cart/<%=wish.bookId%>" class="btn btn-info" role="button">Add to Cart</a>
+      </th>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
           Remove
@@ -73,6 +77,7 @@
       <th>Title</th>
       <th>Genre</th>
       <th></th>
+      <th></th>
     </tr>
 
     <% wishes.wishlist2.forEach(wish => { %>
@@ -83,6 +88,9 @@
         </a>
       </td>
       <td><%= wish.newWishList[0].genre %></td>
+      <th>
+        <a href="/add-to-cart/<%=wish.bookId%>" class="btn btn-info" role="button">Add to Cart</a>
+      </th>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
           Remove
@@ -101,6 +109,7 @@
       <th>Title</th>
       <th>Genre</th>
       <th></th>
+      <th></th>
     </tr>
 
     <% wishes.wishlist3.forEach(wish => { %>
@@ -111,6 +120,9 @@
         </a>
       </td>
       <td><%= wish.newWishList[0].genre %></td>
+      <th>
+        <a href="/add-to-cart/<%=wish.bookId%>" class="btn btn-info" role="button">Add to Cart</a>
+      </th>
       <td class="center">
         <a href="/wishlist/<%= wish._id %>">
           Remove

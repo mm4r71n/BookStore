@@ -1,81 +1,125 @@
-<h2 class="ml-5">All Books</h2>
+<h2>All Books</h2>
+<!-- <div>
+  <table id="book table" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Author</th>
+        <th>Publish Date</th>
+        <th>Price</th>
+        <th>Rating</th>
+        <th>Wishlist Selection</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% books.forEach(function(book) { %>
+      <tr>
+        <td>
+          <img height="150" width="100" src="<%= book.coverImagePath %>" />
+        </td>
+        <td><a href="/books/<%= book._id %>"><%= book.title %></a></td>
+        <td><%= book.genre %></td>
+        <td>
+          <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
+          <%= author.name %> <% } }) %>
+        </td>
+        <td><%= book.publishDate %></td>
+        <td><%= book.price %></td>
+        <td>Null</td>
+        <td>
+          <a href="/wishlist/<%= book._id %>/5da9fbd86c2ebb1128a8eab0"
+            >Add to Wishlist</a>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Cover</th>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Author</th>
+        <th>Release Date</th>
+        <th>Price</th>
+        <th>Rating</th>
+        <th>Wishlist Selection</th>
+      </tr>
+    </tfoot>
+  </table>
+</div> -->
 
-<!-- filter dropdown -->
+<!--<div class ="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Filter by
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dopdownMenuButton">
+    <a class="dropdown-item" href="#"> Fiction</a>
+    <a class="dropdown-item" href="#"> Romance</a>
+    <a class="dropdown-item" href="#"> Horror</a>
+  </div>
+</div>-->
+</head>
 <body>
-    <div class="dropdown ml-5">
-      <button onclick="myFunction()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-        data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+
+<div class="dropdown">
+    <button onclick = "myFunction()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
         Filter by
       </button>
-      <div class="dropdown-content">
-        <a href="/books/show-books/Fantasy/">Fantasy</a>
-        <a href="/books/show-books/Romance/">Romance</a>
-        <a href="/books/show-books/Horror/">Horror</a>
-        <a href="/books/show-books/BestSellers/">Best Sellers</a>
-        <a href="/books/show-books/0star/">Unrated</a>
-        <a href="/books/show-books/1star/"><span>&#x2605;</span></a>
-        <a href="/books/show-books/2star/"><span>&#x2605;&#x2605;</span></a>
-        <a href="/books/show-books/3star/"><span>&#x2605;&#x2605;&#x2605;</span></a>
-        <a href="/books/show-books/4star/"><span>&#x2605;&#x2605;&#x2605;&#x2605;</span></a>
-        <a href="/books/show-books/5star/"><span>&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</span></a>
-      </div>
-    </div>
-</body>
-
-<!-- sort dropdown -->
-<body>
-  <div class="dropdown ml-5">
-    <button onclick="myFunction()" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-      data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-      Sort by
-    </button>
-    <div class="dropdown-content">
-      <a href="title">Title</a>
-      <a href="author">Author</a>
-      <a href="price">Price</a>
-      <a href="bookrating">Book Rating</a>
-      <a href="publishdate">Publish Date</a>
-    </div>
+  <div class="dropdown-content">
+    <a href="/books/show-books/Fantasy/">Fantasy</a>
+    <a href="/books/show-books/Romance/">Romance</a>
+    <a href="/books/show-books/Horror/">Horror</a>
+    <a href="/books/show-books/0star/">Unrated</a>
+    <a href="/books/show-books/1star/"><span>&#x2605;</span></a>
+    <a href="/books/show-books/2star/"><span>&#x2605;&#x2605;</span></a>
+    <a href="/books/show-books/3star/"><span>&#x2605;&#x2605;&#x2605;</span></a>
+    <a href="/books/show-books/4star/"><span>&#x2605;&#x2605;&#x2605;&#x2605;</span></a>
+    <a href="/books/show-books/5star/"><span>&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</span></a>
   </div>
+</div>
 </body>
 
-
-<div class="w-25 p-3">
-  <ul class="list-group list-group-horizontal">
+<div class ="w-25 p-3">
+  <ul class ="list-group list-group-horizontal">
     <% books.forEach(function(book) { %>
-    <li class="list-group-item">
+    <li class ="list-group-item">
       <a href="/books/<%= book._id %>">
-        <div class="text-center">
-          <img height="150" width="100" src="<%= book.coverImagePath %>" />
-        </div>
-        <div class="text-center" data-rows=3>
-          <strong><%= book.title %></strong>
+      <div class ="text-center">
+        <img height="150" width="100" src="<%= book.coverImagePath %>" />
+      </div>
+        <div class ="text-center" data-rows=3>
+          <%= book.title %>
         </div>
       </a>
-      <div class="text-center mt-5" data-rows=2>
+      <div class ="text-center" data-rows=2>
         <% authors.forEach(author => { %> <% if (author.id == book.author){ %>
-        <%= author.name %> <% } }) %>
+          <%= author.name %> <% } }) %>
       </div>
-      <div class="text-center ">
+      <div class ="text-center">
         <% if(book.rating === 1){ %>
-        <span>&#x2605;</span>
+          <span>&#x2605;</span>
         <% }if(book.rating === 2){ %>
-        <span>&#x2605;&#x2605;</span>
+          <span>&#x2605;&#x2605;</span>
         <% }if(book.rating === 3){ %>
-        <span>&#x2605;&#x2605;&#x2605;</span>
+          <span>&#x2605;&#x2605;&#x2605;</span>
         <% }if(book.rating === 4){ %>
-        <span>&#x2605;&#x2605;&#x2605;&#x2605;</span>
+          <span>&#x2605;&#x2605;&#x2605;&#x2605;</span>
         <% }if(book.rating === 5){ %>
-        <span>&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</span>
+          <span>&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</span>
         <% } %>
       </div>
-      <div class="text-center">
+      <div class ="text-center">
         <%= book.price %>
       </div>
-      <div class="text-center mt-5">
-        <h6><a href="/wishlist/<%= book._id %>/5da7c89a68ab8d0f8887d0cf/1">Add to Wishlist 1</a></h6>
-        <h6><a href="/wishlist/<%= book._id %>/5da7c89a68ab8d0f8887d0cf/2">Add to Wishlist 2</a></h6>
-        <h6><a href="/wishlist/<%= book._id %>/5da7c89a68ab8d0f8887d0cf/3">Add to Wishlist 3</a></h6>
+      <div class ="text-center">
+        <a href="/wishlist/<%= book._id %>/5da7c89a68ab8d0f8887d0cf/1"
+            >Add to Wishlist</a><br>
+             <a href="/wishlist/<%= book._id %>/5da7c89a68ab8d0f8887d0cf/2"
+            >Add to Wishlist 2</a><br>
+             <a href="/wishlist/<%= book._id %>/5da7c89a68ab8d0f8887d0cf/3"
+            >Add to Wishlist 3</a> 
       </div>
     </li>
     <% }); %>
@@ -90,51 +134,45 @@
   </ul>
 </div>
 
-
 <!--CSS styling for dropdown menu-->
 <!DOCTYPE html>
 <html>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  .dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-  }
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
 
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
 
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
 
-  .dropdown-content a:click {
-    background-color: rgb(221, 221, 221);
-  }
+.dropdown-content a:click {background-color: rgb(221, 221, 221);}
 
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
+.dropdown:hover .dropdown-content {display: block;}
 
-  .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-  }
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
 </style>

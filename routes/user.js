@@ -3,8 +3,8 @@ const router = express.Router()
 var csrf = require('csurf')
 var passport = require('passport')
 const User = require('../models/user');
-
 var csrfProtection = csrf()
+
 router.use(csrfProtection)
 
 router.get('/profile', isLoggedIn, (req, res, next) => {
@@ -40,17 +40,19 @@ router.post('/signup', passport.authenticate('local-signup', {
 
 router.get('/signin', (req, res, next) => {
   var messages = req.flash('error')
+  var user = req.user
   res.render('user/signin', {
       csrfToken: req.csrfToken(),
       messages: messages,
-      hasErrors: messages.length > 0
+      hasErrors: messages.length > 0,
+      user: user
   })
 })
 
 router.post('/signin', passport.authenticate('local-signin', {
-  successRedirect: '/user/profile',
+  successRedirect: '/',
   failureRedirect: '/user/signin',
-  failureFlash: true
+  failureFlash: true,
 }))
 
 module.exports = router
@@ -59,7 +61,7 @@ function isLoggedIn(req, res, next) {
   if(req.isAuthenticated()) {
     return next()
   }
-  res.redirect('/')
+  res.redirect('/books')
 }
 
 function notLoggedIn(req, res, next) {

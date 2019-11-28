@@ -35,48 +35,50 @@ router.get('/:bookId/:userId/:wishlistNum', async (req, res) => {
 });
 
 router.get('/list', async (req, res) => {
-  const list = await Wishlist.aggregate([
-    {
-      $lookup: {
-        from: 'books',
-        localField: 'bookId',
-        foreignField: '_id',
-        as: 'newWishList'
+  var user = req.user;
+
+  if (user) {
+    const list = await Wishlist.aggregate([
+      { $match: { userId: user._id } },
+      {
+        $lookup: {
+          from: 'books',
+          localField: 'bookId',
+          foreignField: '_id',
+          as: 'newWishList'
+        }
       }
-    }
-  ]).exec(async function(err, wishes) {
-    if (err) {
-      console.log('ERROR', err);
-    }
-    var wishlist1 = [];
-    var wishlist2 = [];
-    var wishlist3 = [];
-    const newlist = wishes.map(wish => {
-      if (wish.wishlistNum === 1) {
-        wishlist1.push(wish);
+    ]).exec(function(err, wishes) {
+      if (err) {
+        console.log('ERROR', err);
       }
-      if (wish.wishlistNum === 2) {
-        wishlist2.push(wish);
-      }
-      if (wish.wishlistNum === 3) {
-        wishlist3.push(wish);
-      }
+      var wishlist1 = [];
+      var wishlist2 = [];
+      var wishlist3 = [];
+      const newlist = wishes.map(wish => {
+        if (wish.wishlistNum === 1) {
+          wishlist1.push(wish);
+        }
+        if (wish.wishlistNum === 2) {
+          wishlist2.push(wish);
+        }
+        if (wish.wishlistNum === 3) {
+          wishlist3.push(wish);
+        }
+      });
+
+      const newList = {
+        wishlist1: wishlist1,
+        wishlist2: wishlist2,
+        wishlist3: wishlist3,
+        user: user
+      };
+
+      res.render('wishlist/list', { wishes: newList });
     });
-
-    const allwishlist = await Wishlist.find({});
-
-    console.log('allwishlist', allwishlist);
-
-    const newList = {
-      wishlist1: wishlist1,
-      wishlist2: wishlist2,
-      wishlist3: wishlist3
-    };
-
-    console.log('wishes', newList);
-
-    res.render('wishlist/list', { wishes: newList });
-  });
+  } else {
+    res.redirect('/user/signin');
+  }
 });
 
 router.post('/', async (req, res) => {
@@ -93,8 +95,6 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  console.log('id', req.params.id.trim());
-
   const res1 = await Wishlist.deleteOne({ _id: req.params.id.trim() }, function(
     err
   ) {

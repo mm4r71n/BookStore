@@ -11,11 +11,13 @@ router.get('/', async (req, res) => {
   try {
     books = await Book.find({}).limit(10);
     const authors = await Author.find({});
+    const user = req.user;
     
     res.render('books/index', {
       books: books,
       authors: authors,
-      searchOptions: req.query
+      searchOptions: req.query,
+      user: user
     });
   } catch (error) {
     res.redirect('/');
@@ -337,11 +339,12 @@ router.get('/:bookID', async (req, res) => {
   const book = await Book.find({ _id: req.params.bookID });
   const comments = await Comment.find({ 'bookID': book[0].id });
   const authors = await Author.find({});
+  const books = await Book.find({});
   if (req.user !== undefined) {
     const user = await User.findOne({_id: req.user._id});
-    res.render('books/bookDetails', { book: book[0], comments, userID: user.id, authors: authors});
+    res.render('books/bookDetails', { book: book[0], comments, userID: user.id, authors: authors, books: books});
   } else {
-    res.render('books/bookDetails', { book: book[0], comments, userID: -1, authors: authors});
+    res.render('books/bookDetails', { book: book[0], comments, userID: -1, authors: authors, books: books});
   }
 });
 router.get('/:id', async (req, res) => {
